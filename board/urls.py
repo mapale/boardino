@@ -8,14 +8,13 @@ urlpatterns = patterns('board.views',
     url(r'^new$', 'create_board'),
     url(r'^subscribe', 'subscribe'),
     #API
-    url(r'^api/boards/(?P<board_id>\d+)/postits/$', PostitList.as_view(), name='postit-list'),
-    url(r'^api/boards/(?P<board_id>\d+)/postits/(?P<pk>\d+)$', PostitDetail.as_view(), name='postit-detail'),
-    url(r'^api/boards/(?P<board_id>\d+)/lines/$', LineList.as_view(), name='line-list'),
-    url(r'^api/boards/(?P<board_id>\d+)/lines/(?P<pk>\d+)$', LineDetail.as_view(), name='line-detail'),
+    url(r'^api/boards/(?P<board_hash>\w+)/postits/$', PostitList.as_view(), name='postit-list'),
+    url(r'^api/boards/(?P<board_hash>\w+)/postits/(?P<pk>\d+)$', PostitDetail.as_view(), name='postit-detail'),
+    url(r'^api/boards/(?P<board_hash>\w+)/lines/$', LineList.as_view(), name='line-list'),
+    url(r'^api/boards/(?P<board_hash>\w+)/lines/(?P<pk>\d+)$', LineDetail.as_view(), name='line-detail'),
     url(r'^(?P<board_hash>\w+)$', 'board'),
-    url(r'^(?P<board_id>\d+)/postit/new', 'new_postit'),
-    url(r'^(?P<board_id>\d+)/authorize', 'authorize_board', name="board-authorization"),
-    url(r'^(?P<board_id>\d+)/lines/clear', 'clear_lines'),
+    url(r'^(?P<board_hash>\w+)/authorize', 'authorize_board', name="board-authorization"),
+    url(r'^(?P<board_hash>\w+)/lines/clear', 'clear_lines'),
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'api'])

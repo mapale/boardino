@@ -10,7 +10,6 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from board.models import Board, PostIt, Line
 from board.serializers import PostitSerializer, LineSerializer
-import hashlib, time
 
 def home(request):
     return render_to_response('home.html')
@@ -68,28 +67,28 @@ def create_board(request):
 
     return HttpResponseRedirect("/"+new_board.hash)
 
-def authorize_board(request, board_id):
+def authorize_board(request, board_hash):
+    board = get_object_or_404(Board, hash=board_hash)
     if request.POST:
-        board = get_object_or_404(Board, pk=board_id)
         password = request.POST["password"]
         if password==board.password:
-            request.session['board_'+board_id] = {"authorized":True}
-            return HttpResponseRedirect("/"+str(board_id))
+            request.session['board_'+str(board.id)] = {"authorized":True}
+            return HttpResponseRedirect("/"+board_hash)
         else:
-            return render_to_response('authorize.html',{'board_id': board_id},context_instance=RequestContext(request))
+            return render_to_response('authorize.html',{'board_id': board.id},context_instance=RequestContext(request))
     else:
-        return render_to_response('authorize.html',{'board_id': board_id},context_instance=RequestContext(request))
+        return render_to_response('authorize.html',{'board_id': board.id},context_instance=RequestContext(request))
 
 def board(request, board_hash):
     board = get_object_or_404(Board, hash=board_hash)
     if board.password:
-        if 'board_'+board.id not in request.session:
+        if 'board_'+str(board.id) not in request.session:
             return HttpResponseRedirect("/"+board_hash+"/authorize")
     return render_to_response('board.html',{'board_id': board.id, 'postits':board.postit_set.all()})
 
 @csrf_exempt
-def clear_lines(request, board_id):
-    board = get_object_or_404(Board, pk=board_id)
+def clear_lines(request, board_hash):
+    board = get_object_or_404(Board, hash=board_hash)
     Line.objects.filter(board=board).delete()
 
     json_data = json.dumps({"result":"OK"})
@@ -112,12 +111,13 @@ class PostitList(generics.ListCreateAPIView):
     serializer_class = PostitSerializer
 
     def get_queryset(self):
-        board_id = self.kwargs['board_id']
-        return PostIt.objects.filter(board__id=board_id)
+        board_hash = self.kwargs['board_hash']
+        board = get_object_or_404(Board, hash=board_hash)
+        return PostIt.objects.filter(board__id=board.id)
 
     def pre_save(self, postit):
-        board_id = self.kwargs['board_id']
-        board = get_object_or_404(Board, pk=board_id)
+        board_hash = self.kwargs['board_hash']
+        board = get_object_or_404(Board, hash=board_hash)
         postit.board = board
 
 
@@ -131,12 +131,13 @@ class LineList(generics.ListCreateAPIView):
     serializer_class = LineSerializer
 
     def get_queryset(self):
-        board_id = self.kwargs['board_id']
-        return Line.objects.filter(board__id=board_id)
+        board_hash = self.kwargs['board_hash']
+        board = get_object_or_404(Board, hash=board_hash)
+        return Line.objects.filter(board__id=board.id)
 
     def pre_save(self, line):
-        board_id = self.kwargs['board_id']
-        board = get_object_or_404(Board, pk=board_id)
+        board_hash = self.kwargs['board_hash']
+        board = get_object_or_404(Board, hash=board_hash)
         line.board = board
 
 class LineDetail(generics.RetrieveUpdateDestroyAPIView):
