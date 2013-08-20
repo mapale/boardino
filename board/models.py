@@ -1,8 +1,24 @@
 from django.db import models
+import hashlib, time
 
 class Board(models.Model):
 
     password = models.TextField(default="")
+    hash = models.CharField(max_length=8, null=True)
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.hash = self.generate_hash()
+        return super(Board, self).save(force_insert, force_update, using, update_fields)
+
+    def generate_hash(self):
+        while True:
+            hash = hashlib.sha256(str(time.time())).hexdigest()[:8]
+            try:
+                Board.objects.get(hash=hash)
+            except Board.DoesNotExist:
+                return hash
+
 
     def __unicode__(self):
         return self.id

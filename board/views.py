@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from board.models import Board, PostIt, Line
 from board.serializers import PostitSerializer, LineSerializer
+import hashlib, time
 
 def home(request):
     return render_to_response('home.html')
@@ -65,7 +66,7 @@ def create_board(request):
     sharePostit.save()
     comeBackPostit.save()
 
-    return HttpResponseRedirect("/"+str(new_board.id))
+    return HttpResponseRedirect("/"+new_board.hash)
 
 def authorize_board(request, board_id):
     if request.POST:
@@ -79,12 +80,12 @@ def authorize_board(request, board_id):
     else:
         return render_to_response('authorize.html',{'board_id': board_id},context_instance=RequestContext(request))
 
-def board(request, board_id):
-    board = get_object_or_404(Board, pk=board_id)
+def board(request, board_hash):
+    board = get_object_or_404(Board, hash=board_hash)
     if board.password:
-        if 'board_'+board_id not in request.session:
-            return HttpResponseRedirect("/"+str(board_id)+"/authorize")
-    return render_to_response('board.html',{'board_id': board_id, 'postits':board.postit_set.all()})
+        if 'board_'+board.id not in request.session:
+            return HttpResponseRedirect("/"+board_hash+"/authorize")
+    return render_to_response('board.html',{'board_id': board.id, 'postits':board.postit_set.all()})
 
 @csrf_exempt
 def clear_lines(request, board_id):
