@@ -8,7 +8,8 @@ class Board(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        self.hash = self.generate_hash()
+        if not self.hash:
+            self.hash = self.generate_hash()
         return super(Board, self).save(force_insert, force_update, using, update_fields)
 
     def generate_hash(self):
