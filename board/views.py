@@ -77,7 +77,7 @@ def authorize_board(request, board_hash):
         else:
             return render_to_response('authorize.html',{'board': board},context_instance=RequestContext(request))
     else:
-        return render_to_response('authorize.html',{'board_id': board},context_instance=RequestContext(request))
+        return render_to_response('authorize.html',{'board': board},context_instance=RequestContext(request))
 
 def board(request, board_hash):
     board = get_object_or_404(Board, hash=board_hash)
