@@ -5,7 +5,7 @@
     <title>Boardino - Project Management Whiteboard</title>
 </head>
 <body>
-    <form action="/{{ board_id }}/authorize" method="post">
+    <form action="/{{ board.hash }}/authorize" method="post">
         {% csrf_token %}
         <label for="password">Password:</label>
         <input id="password" name="password" type="password"/>
