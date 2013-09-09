@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^jasmine', include('django_jasmine.urls')),
 
     url(r'^accounts/signin/', 'userena.views.signin', {'template_name': 'signin.html'}, name="signin"),
+    url(r'^accounts/signup/', 'userena.views.signup', {'template_name': 'signup.html'}, name="signup"),
     (r'^accounts/', include('userena.urls')),
 
     #url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/images/favicon.ico'}),

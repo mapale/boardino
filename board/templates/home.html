@@ -29,6 +29,7 @@
                         <input type="password" placeholder="Password" class="form-control" id="id_password" name="password">
                     </div>
                     <button type="submit" class="btn btn-success">Sign in</button>
+                    <a href="{% url 'userena.views.signup' %}" class="btn btn-primary">Sign up</a>
                 </form>
             </div><!--/.navbar-collapse -->
             {% else %}
