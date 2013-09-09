@@ -13,3 +13,4 @@ djangorestframework
 markdown
 pyyaml
 django-userena
+PIL
