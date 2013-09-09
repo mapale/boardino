@@ -17,7 +17,9 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
+            {% if not user.is_authenticated %}
             <div class="navbar-collapse collapse">
+
                 <form class="navbar-form navbar-right" action="{%  url 'userena.views.signin' %}" method="post">
                     {% csrf_token %}
                     <div class="form-group">
@@ -29,6 +31,14 @@
                     <button type="submit" class="btn btn-success">Sign in</button>
                 </form>
             </div><!--/.navbar-collapse -->
+            {% else %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><p class="navbar-text">
+                        Signed in as <a href="#" class="navbar-link">{{ user.username }}</a>
+                    </p></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            {% endif %}
         </div>
     </div>
 
