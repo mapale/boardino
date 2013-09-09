@@ -113,7 +113,11 @@ AUTHENTICATION_BACKENDS = (
 
 ANONYMOUS_USER_ID = -1
 
-AUTH_PROFILE_MODULE = 'accounts.models.UserProfile'
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
