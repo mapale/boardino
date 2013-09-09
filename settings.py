@@ -105,6 +105,18 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
+AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+ANONYMOUS_USER_ID = -1
+
+AUTH_PROFILE_MODULE = 'accounts.models.UserProfile'
+
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
 ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
@@ -124,7 +136,11 @@ INSTALLED_APPS = (
     'south',
     'board',
     'compressor',
-    'rest_framework'
+    'rest_framework',
+    'userena',
+    'guardian',
+    'easy_thumbnails',
+    'accounts'
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -144,7 +160,8 @@ LOGGING = {
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
+            'class': 'django.utils.log.AdminEmailHandler',
+            'filters': []
         }
     },
     'loggers': {
