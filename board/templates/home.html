@@ -64,11 +64,16 @@
                     </div>
                 </p>
             </div>
-            <!--<div class="col-lg-4">
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-            </div>-->
+            <div class="col-lg-4">
+                <h2>Your Boardinos</h2>
+                {% if visited_boards %}
+                    {% for board_hash in visited_boards %}
+                        <p><a href="/{{ board_hash }}" >&raquo; {{ board_hash }}</a></p>
+                    {% endfor %}
+                {% else %}
+                    <p>You haven't visited any Boardino yet.</p>
+                {% endif %}
+            </div>
         </div>
 
         <hr>

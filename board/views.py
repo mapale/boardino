@@ -12,7 +12,10 @@ from board.models import Board, PostIt, Line
 from board.serializers import PostitSerializer, LineSerializer
 
 def home(request):
-    return render_to_response('home.html')
+    visited_boards = []
+    if 'visited' in request.session:
+        visited_boards = request.session['visited']
+    return render_to_response('home.html', {'visited_boards': visited_boards}, context_instance=RequestContext(request))
 
 @csrf_exempt
 def subscribe(request):
@@ -21,7 +24,6 @@ def subscribe(request):
         json_data = json.dumps({"result":"Pleas enter a valid email"})
         return HttpResponse(json_data, mimetype="application/json")
 
-    print "seguieee!!"
     if request.is_ajax():
         email = request.POST["email"]
         try:
@@ -50,7 +52,7 @@ def create_board(request):
 
     welcomePostit = PostIt(text="Welcome! Move me! Edit me! Delete me!",x=120,y=50, board=new_board, width=100,
                            height=100)
-    sharePostit = PostIt(text="Share this board and work together in realtime!\n\nhttp://www.boardino.com/"+str(new_board.id),
+    sharePostit = PostIt(text="Share this board and work together in realtime!\n\nhttp://www.boardino.com/"+new_board.hash,
                     x=200,
                     y=300,
                     board=new_board,
@@ -75,16 +77,22 @@ def authorize_board(request, board_hash):
             request.session['board_'+str(board.id)] = {"authorized":True}
             return HttpResponseRedirect("/"+board_hash)
         else:
-            return render_to_response('authorize.html',{'board': board},context_instance=RequestContext(request))
+            return render_to_response('authorize.html',{'board': board}, context_instance=RequestContext(request))
     else:
-        return render_to_response('authorize.html',{'board': board},context_instance=RequestContext(request))
+        return render_to_response('authorize.html',{'board': board}, context_instance=RequestContext(request))
 
 def board(request, board_hash):
     board = get_object_or_404(Board, hash=board_hash)
     if board.password:
         if 'board_'+str(board.id) not in request.session:
             return HttpResponseRedirect("/"+board_hash+"/authorize")
-    return render_to_response('board.html',{'board_id': board.id, 'postits':board.postit_set.all()})
+    if 'visited' in request.session and board_hash not in request.session['visited']:
+        visited_boards = request.session['visited']
+        visited_boards.insert(0, board_hash)
+        request.session['visited'] = visited_boards
+    else:
+        request.session['visited'] = [board_hash]
+    return render_to_response('board.html',{'board_id': board.id, 'postits':board.postit_set.all()}, context_instance=RequestContext(request))
 
 @csrf_exempt
 def clear_lines(request, board_hash):
