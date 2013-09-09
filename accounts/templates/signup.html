@@ -27,11 +27,11 @@
         {% for error in form.non_field_errors %}
             <div class="alert alert-danger">{{ error }}</div>
         {% endfor %}
-        <input class="form-control" placeholder="Username" id="id_username" maxlength="30" name="username" type="text" value="{{ form.username.value }}"/>
+        <input class="form-control" placeholder="Username" id="id_username" maxlength="30" name="username" type="text" value="{{ form.username.value|default_if_none:"" }}"/>
         {% for error in form.username.errors %}
             <div class="alert alert-danger">{{ error }}</div>
         {% endfor %}
-        <input class="form-control" placeholder="Email" id="id_email" maxlength="75" name="email" type="text" value="{{ form.email.value }}"/>
+        <input class="form-control" placeholder="Email" id="id_email" maxlength="75" name="email" type="text" value="{{ form.email.value|default_if_none:"" }}"/>
         {% for error in form.email.errors %}
             <div class="alert alert-danger">{{ error }}</div>
         {% endfor %}
