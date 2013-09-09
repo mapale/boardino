@@ -12,3 +12,4 @@ BeautifulSoup
 djangorestframework
 markdown
 pyyaml
+django-userena

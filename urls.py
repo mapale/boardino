@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, url, include
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -9,6 +9,11 @@ from django.conf.urls.static import static
 urlpatterns = patterns('',
     url(r'^', include('board.urls')),
     url(r'^jasmine', include('django_jasmine.urls')),
+
+    url(r'^accounts/signin/', 'userena.views.signin', {'template_name': 'signin.html'}, name="signin"),
+    url(r'^accounts/signup/', 'userena.views.signup', {'template_name': 'signup.html'}, name="signup"),
+    (r'^accounts/', include('userena.urls')),
+
     #url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/images/favicon.ico'}),
     # Examples:
     # url(r'^$', 'whiteboard.views.home', name='home'),
