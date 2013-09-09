@@ -122,6 +122,7 @@ LOGOUT_URL = '/accounts/signout/'
 USERENA_SIGNIN_AFTER_SIGNUP = True
 USERENA_ACTIVATION_REQUIRED = False
 USERENA_SIGNIN_REDIRECT_URL = '/'
+USERENA_REDIRECT_ON_SIGNOUT = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
