@@ -3,8 +3,9 @@
 <html>
 <head>
     <title>Boardino - Project Management Whiteboard</title>
+    <link href="/static/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/static/css/board.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <!--<script type="text/javascript" src="/static/js/lib/jquery.ui.touch.js"></script>
     <script type="text/javascript" src="/static/js/lib/jquery.ui.ipad.altfix.js"></script>-->
     <!--<script type="text/javascript">
@@ -33,7 +34,12 @@
     <meta name = "viewport" content = "initial-scale = 1.0">
 </head>
 <body>
+    <ul id="menu">
+        <li><a href="#" id="set-password">Set password</a></li>
+        <!--<li><a href="#" id="set-name">Set name</a></li>-->
+    </ul>
     <div id="toolbar">
+        <a id="menu_tool"></a>
         <a id="postit_tool" class="postit_tool_disabled"></a>
         <div id="pencil_tool" style="height:50px; width: 50px">
             <a id="selected_pencil_tool" class="pencil_tool_disabled"></a>
@@ -49,6 +55,39 @@
     <div id="dialog" title="Cleaning drawings..." style="display: none;">
         Are you sure about this?
     </div>
+    <div class="modal fade" id="set-password-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Set boardino password</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="set-password-error" class="alert alert-danger" style="display: none">
+                        There is a password mismatch
+                    </div>
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="board-password" class="col-lg-2 control-label">Password</label>
+                            <div class="col-lg-10">
+                                <input type="password" class="form-control" id="board-password" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="board-password2" class="col-lg-2 control-label">Confirm password</label>
+                            <div class="col-lg-10">
+                                <input type="password" class="form-control" id="board-password2" placeholder="Confirm password">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="set-password-btn" data-loading-text="saving..." >Save</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <div id="board">
         <canvas id="board-canvas" width="3000" height="1500"></canvas>
     </div>

@@ -157,3 +157,6 @@ class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Board
     serializer_class = BoardSerializer
     lookup_field = 'hash'
+
+    def post_save(self, board, created=False):
+        del self.request.session['board_'+str(board.id)]
