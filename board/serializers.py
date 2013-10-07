@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from board.models import PostIt, Line
+from board.models import PostIt, Line, Board
+
 
 class PostitSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,4 +13,14 @@ class LineSerializer(serializers.ModelSerializer):
         model = Line
         fields = ['id', 'color_l','stroke_w','path']
 
+
+class BoardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Board
+        fields = ['hash','password']
+
+    def to_native(self, obj):
+        ret = super(BoardSerializer, self).to_native(obj)
+        del ret['password']
+        return ret
   

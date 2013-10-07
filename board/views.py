@@ -9,7 +9,8 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from board.models import Board, PostIt, Line
-from board.serializers import PostitSerializer, LineSerializer
+from board.serializers import PostitSerializer, LineSerializer, BoardSerializer
+
 
 def home(request):
     visited_boards = []
@@ -151,3 +152,8 @@ class LineList(generics.ListCreateAPIView):
 class LineDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Line
     serializer_class = LineSerializer
+
+class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = Board
+    serializer_class = BoardSerializer
+    lookup_field = 'hash'
