@@ -4,7 +4,7 @@ import hashlib, time
 class Board(models.Model):
 
     password = models.TextField(default="")
-    hash = models.CharField(max_length=8, null=True)
+    hash = models.CharField(max_length=30, null=True)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
