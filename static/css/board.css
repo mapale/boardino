@@ -235,7 +235,7 @@ body {
     position: fixed;
     left: 55px;
     top: 5px;
-    width: 200px;
+
     display: none;
     z-index: 1000;
 }
