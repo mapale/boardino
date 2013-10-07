@@ -36,7 +36,7 @@
 <body>
     <ul id="menu">
         <li><a href="#" id="set-password"><span class="ui-icon ui-icon-locked"></span>Set password</a></li>
-        <!--<li><a href="#" id="set-name">Set name</a></li>-->
+        <li><a href="#" id="set-alias">Set an alias</a></li>
     </ul>
     <div id="toolbar">
         <a id="menu_tool"></a>
@@ -84,6 +84,34 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" id="set-password-btn" data-loading-text="saving..." >Save</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="set-alias-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Set boardino alias</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="set-name-error" class="alert alert-danger" style="display: none">
+                        Only alphanumeric characters allowed
+                    </div>
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="board-alias" class="col-lg-2 control-label">Alias</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" id="board-alias" placeholder="New boardino alias">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="set-alias-btn" data-loading-text="saving..." >Save</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

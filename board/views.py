@@ -158,5 +158,9 @@ class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BoardSerializer
     lookup_field = 'hash'
 
+    def pre_save(self, board):
+        pass
+
     def post_save(self, board, created=False):
-        del self.request.session['board_'+str(board.id)]
+        if 'board_'+str(board.id) in self.request.session:
+            del self.request.session['board_'+str(board.id)]
