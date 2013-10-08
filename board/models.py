@@ -4,7 +4,8 @@ import hashlib, time
 class Board(models.Model):
 
     password = models.TextField(default="", blank=True)
-    hash = models.CharField(max_length=30, null=True, unique=True)
+    hash = models.CharField(max_length=30, null=True, unique=True,
+                            error_messages={'unique':'A Board with this alias already exists'})
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

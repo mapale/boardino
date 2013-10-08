@@ -36,7 +36,7 @@
 <body>
     <ul id="menu">
         <li><a href="#" id="set-password"><span class="ui-icon ui-icon-locked"></span>Set password</a></li>
-        <li><a href="#" id="set-alias">Set an alias</a></li>
+        <li><a href="#" id="set-alias"><span class="ui-icon ui-icon-tag"></span>Set an alias</a></li>
     </ul>
     <div id="toolbar">
         <a id="menu_tool"></a>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="modal-body">
                     <div id="set-password-error" class="alert alert-danger" style="display: none">
-                        There is a password mismatch
+                        <span id="set-password-error-msg">There is a password mismatch</span>
                     </div>
                     <div class="form-horizontal" role="form">
                         <div class="form-group">
@@ -91,14 +91,13 @@
     <div class="modal fade" id="set-alias-modal">
         <div class="modal-dialog">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">Set boardino alias</h4>
                 </div>
                 <div class="modal-body">
-                    <div id="set-name-error" class="alert alert-danger" style="display: none">
-                        Only alphanumeric characters allowed
+                    <div id="set-alias-error" class="alert alert-danger" style="display: none">
+                        <span id="set-alias-error-msg">Only alphanumeric characters allowed</span>
                     </div>
                     <div class="form-horizontal" role="form">
                         <div class="form-group">
