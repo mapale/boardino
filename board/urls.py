@@ -13,7 +13,9 @@ urlpatterns = patterns('board.views',
     url(r'^api/boards/(?P<board_hash>\w+)/postits/(?P<pk>\d+)$', PostitDetail.as_view(), name='postit-detail'),
     url(r'^api/boards/(?P<board_hash>\w+)/lines/$', LineList.as_view(), name='line-list'),
     url(r'^api/boards/(?P<board_hash>\w+)/lines/(?P<pk>\d+)$', LineDetail.as_view(), name='line-detail'),
+
     url(r'^(?P<board_hash>\w+)$', 'board'),
+    url(r'^(?P<board_hash>\w+)/clone/$', 'clone', name="clone-board"),
     url(r'^(?P<board_hash>\w+)/authorize', 'authorize_board', name="board-authorization"),
     url(r'^(?P<board_hash>\w+)/lines/clear', 'clear_lines'),
 )

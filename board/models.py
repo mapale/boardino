@@ -35,9 +35,26 @@ class PostIt(models.Model):
     color = models.TextField(default="#FFFF99")
     back_color = models.TextField(default="#FFFF33")
 
+    def clone(self):
+        clone = PostIt()
+        clone.x = self.x
+        clone.y = self.y
+        clone.width = self.width
+        clone.height = self.height
+        clone.text = self.text
+        clone.color = self.color
+        clone.back_color = self.back_color
+        return clone
+
 class Line(models.Model):
     board = models.ForeignKey(Board)
     color_l = models.TextField(default="000000")
     stroke_w = models.IntegerField()
     path = models.TextField(null=True, blank=True)
 
+    def clone(self):
+        clone = Line()
+        clone.color_l = self.color_l
+        clone.stroke_w = self.stroke_w
+        clone.path = self.path
+        return clone

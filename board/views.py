@@ -93,7 +93,7 @@ def board(request, board_hash):
         request.session['visited'] = visited_boards
     else:
         request.session['visited'] = [board_hash]
-    return render_to_response('board.html',{'board_id': board.id, 'postits':board.postit_set.all()}, context_instance=RequestContext(request))
+    return render_to_response('board.html',{'board_hash': board.hash, 'postits':board.postit_set.all()}, context_instance=RequestContext(request))
 
 @csrf_exempt
 def clear_lines(request, board_hash):
@@ -107,6 +107,22 @@ def clear_lines(request, board_hash):
     else:
         return HttpResponse(status=400)
 
+def clone(request, board_hash):
+    board = get_object_or_404(Board, hash=board_hash)
+    new_board = Board()
+    new_board.save()
+
+    for postit in board.postit_set.all():
+        postit_clone = postit.clone()
+        postit_clone.board = new_board
+        postit_clone.save()
+
+    for line in board.line_set.all():
+        line_clone = line.clone()
+        line_clone.board = new_board
+        line_clone.save()
+
+    return HttpResponseRedirect("/"+new_board.hash)
 
 @api_view(['GET'])
 def api_root(request, format=None):
