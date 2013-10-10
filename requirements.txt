@@ -14,3 +14,4 @@ markdown
 pyyaml
 django-userena
 PIL
+mock
