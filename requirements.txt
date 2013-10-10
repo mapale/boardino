@@ -1,3 +1,4 @@
+django
 dj-database-url
 dj-static
 gunicorn
