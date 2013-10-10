@@ -6,4 +6,4 @@ services: sqlite3
 # command to install dependencies
 install: "pip install -r requirements.txt --use-mirrors"
 # command to run tests
-script:  "python manage.py test board accounts --settings=test_settings"
+script:  "./manage.py test board accounts --settings=test_settings"

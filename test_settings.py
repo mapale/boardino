@@ -5,7 +5,6 @@ INSTALLED_APPS = [app for app in INSTALLED_APPS if app != 'south']
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'test_database.db'
+        'ENGINE': 'django.db.backends.sqlite3'
     }
 }
