@@ -1,8 +1,8 @@
 language: python
 python:
-  - "2.6"
   - "2.7"
 # command to install dependencies
 install: "pip install -r requirements.txt --use-mirrors"
 # command to run tests
-script:  "./manage.py test board accounts --settings=test_settings"
+script:
+  - "sudo PYTHONPATH=$PYTHONPATH:/home/travis/virtualenv/python2.7/lib/python2.7/site-packages/ ./manage.py test board accounts --settings=test_settings"
