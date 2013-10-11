@@ -87,6 +87,10 @@ def board(request, board_hash):
     if board.password:
         if 'board_'+str(board.id) not in request.session:
             return HttpResponseRedirect("/"+board_hash+"/authorize")
+    if request.user.is_authenticated() :
+        profile = request.user.get_profile()
+        profile.boardinos.add(board)
+        profile.save()
     if 'visited' in request.session and board_hash not in request.session['visited']:
         visited_boards = request.session['visited']
         visited_boards.insert(0, board_hash)

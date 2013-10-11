@@ -129,6 +129,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
+    os.path.join(os.path.dirname(__file__), 'board', 'templates'),
 
 )
 
