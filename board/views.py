@@ -8,8 +8,8 @@ from rest_framework.decorators import api_view
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from board.models import Board, PostIt, Line
-from board.serializers import PostitSerializer, LineSerializer, BoardSerializer
+from board.models import Board, PostIt, Line, Text
+from board.serializers import PostitSerializer, LineSerializer, BoardSerializer, TextSerializer
 
 
 def home(request):
@@ -153,6 +153,26 @@ class PostitList(generics.ListCreateAPIView):
 class PostitDetail(generics.RetrieveUpdateDestroyAPIView):
     model = PostIt
     serializer_class = PostitSerializer
+
+
+class TextList(generics.ListCreateAPIView):
+    model = Text
+    serializer_class = TextSerializer
+
+    def get_queryset(self):
+        board_hash = self.kwargs['board_hash']
+        board = get_object_or_404(Board, hash=board_hash)
+        return Text.objects.filter(board__id=board.id)
+
+    def pre_save(self, text):
+        board_hash = self.kwargs['board_hash']
+        board = get_object_or_404(Board, hash=board_hash)
+        text.board = board
+
+
+class TextDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = Text
+    serializer_class = TextSerializer
 
 
 class LineList(generics.ListCreateAPIView):

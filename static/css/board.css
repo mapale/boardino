@@ -81,6 +81,27 @@ body {
     height:100%;
 }
 
+.text{
+    position: absolute;
+    padding: 22px 2px 2px 2px;
+    box-sizing: content-box;
+}
+
+.text_input {
+    -moz-box-sizing:border-box;
+    border:none;
+    resize: none;
+    display:block;
+    position: relative;
+    padding:0px;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0);
+    overflow: hidden;
+}
+
 .postit_tool_enabled{
     cursor:pointer;
     background-image: url('/static/images/postit_enabled.png');
@@ -206,6 +227,19 @@ body {
     width: 50px;
 }
 
+.text_tool_enabled{
+    background-image: url('/static/images/text_enabled.png');
+    display: block;
+    height: 50px;
+    width: 50px;
+}
+.text_tool_disabled{
+    cursor:pointer;
+    background-image: url('/static/images/text_disabled.png');
+    display: block;
+    height: 50px;
+    width: 50px;
+}
 
 .clear_lines_tool_enabled{
     cursor:pointer;

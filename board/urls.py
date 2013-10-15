@@ -1,7 +1,7 @@
 from django.conf.urls import include
 from django.conf.urls.defaults import patterns, url
 from rest_framework.urlpatterns import format_suffix_patterns
-from board.views import PostitList, PostitDetail, LineList, LineDetail, BoardDetail
+from board.views import PostitList, PostitDetail, LineList, LineDetail, BoardDetail, TextList, TextDetail
 
 urlpatterns = patterns('board.views',
     url(r'^$', 'home'),
@@ -11,6 +11,8 @@ urlpatterns = patterns('board.views',
     url(r'^api/boards/(?P<hash>\w+)/$', BoardDetail.as_view(), name='board-detail'),
     url(r'^api/boards/(?P<board_hash>\w+)/postits/$', PostitList.as_view(), name='postit-list'),
     url(r'^api/boards/(?P<board_hash>\w+)/postits/(?P<pk>\d+)$', PostitDetail.as_view(), name='postit-detail'),
+    url(r'^api/boards/(?P<board_hash>\w+)/texts/$', TextList.as_view(), name='text-list'),
+    url(r'^api/boards/(?P<board_hash>\w+)/texts/(?P<pk>\d+)$', TextDetail.as_view(), name='text-detail'),
     url(r'^api/boards/(?P<board_hash>\w+)/lines/$', LineList.as_view(), name='line-list'),
     url(r'^api/boards/(?P<board_hash>\w+)/lines/(?P<pk>\d+)$', LineDetail.as_view(), name='line-detail'),
 

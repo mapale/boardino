@@ -1,11 +1,17 @@
 from rest_framework import serializers
-from board.models import PostIt, Line, Board
+from board.models import PostIt, Line, Board, Text
 
 
 class PostitSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostIt
         fields = ['id','x','y','width','height','text','back_color']
+
+
+class TextSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Text
+        fields = ['id','x','y','width','height', 'text']
 
 
 class LineSerializer(serializers.ModelSerializer):
