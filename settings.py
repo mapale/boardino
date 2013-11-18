@@ -149,9 +149,8 @@ INSTALLED_APPS = (
     'userena',
     'guardian',
     'easy_thumbnails',
-    'accounts'
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'accounts',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

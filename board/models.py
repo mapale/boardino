@@ -3,7 +3,7 @@ import hashlib, time
 
 class Board(models.Model):
 
-    password = models.TextField(default="", blank=True)
+    password = models.CharField(default="", blank=True, max_length=20)
     hash = models.CharField(max_length=30, null=True, unique=True,
                             error_messages={'unique':'A Board with this alias already exists'})
 
@@ -23,7 +23,7 @@ class Board(models.Model):
 
 
     def __unicode__(self):
-        return self.id
+        return self.hash
 
 class PostIt(models.Model):
     board = models.ForeignKey(Board)
@@ -45,6 +45,9 @@ class PostIt(models.Model):
         clone.color = self.color
         clone.back_color = self.back_color
         return clone
+
+    def __unicode__(self):
+        return str(self.id)
 
 class Text(models.Model):
     board = models.ForeignKey(Board)
