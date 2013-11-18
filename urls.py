@@ -8,7 +8,6 @@ from django.conf.urls.static import static
 
 urlpatterns = patterns('',
     url(r'^', include('board.urls')),
-    url(r'^jasmine', include('django_jasmine.urls')),
 
     url(r'^accounts/signin/', 'userena.views.signin', {'template_name': 'signin.html'}, name="signin"),
     url(r'^accounts/signup/', 'userena.views.signup', {'template_name': 'signup.html', 'success_url': '/'}, name="signup"),
