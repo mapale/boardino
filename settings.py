@@ -141,7 +141,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_nose',
-    'lettuce.django',
     'django_jasmine',
     'south',
     'board',

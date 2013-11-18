@@ -5,7 +5,6 @@ gunicorn
 psycopg2
 static
 django_jasmine
-lettuce
 django_nose
 South
 django_compressor
