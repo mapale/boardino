@@ -23,7 +23,10 @@ class Board(models.Model):
 
 
     def __unicode__(self):
-        return self.hash
+        if self.hash:
+            return self.hash
+        return str(self.id)
+
 
 class PostIt(models.Model):
     board = models.ForeignKey(Board)
