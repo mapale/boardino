@@ -151,6 +151,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'accounts',
     'django.contrib.admin',
+    'captcha'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
