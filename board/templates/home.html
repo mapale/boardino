@@ -18,7 +18,14 @@
                 <h2>How to Start?</h2>
                 <p>Just click here to create your first Boardino.</p>
                 <p>It is not required to sign-up.</p>
-                <p><a class="btn btn-success" href="/new" rel="nofollow">Start &raquo;</a></p>
+                <p>
+                <form action="/new" method="post">
+                    {% csrf_token %}
+                    {{ board_form }}
+                    <input type="submit" class="btn btn-success" href="/new" rel="nofollow" value="Start &raquo;"/>
+                </form>
+
+                </p>
             </div>
             <div class="col-lg-4">
                 <h2>Already started?</h2>

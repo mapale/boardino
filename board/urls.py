@@ -1,5 +1,4 @@
-from django.conf.urls import include
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import include, patterns, url
 from rest_framework.urlpatterns import format_suffix_patterns
 from board.views import PostitList, PostitDetail, LineList, LineDetail, BoardDetail, TextList, TextDetail
 

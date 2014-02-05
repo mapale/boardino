@@ -15,6 +15,8 @@ urlpatterns = patterns('',
     url(r'^accounts/signup/', 'userena.views.signup', {'template_name': 'signup.html', 'success_url': '/'}, name="signup"),
     (r'^accounts/', include('userena.urls')),
 
+    url(r'^captcha/', include('captcha.urls')),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 )+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
