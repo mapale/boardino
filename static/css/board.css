@@ -1,7 +1,15 @@
+html {
+    height: 100%;
+}
+
 body {
     padding-top: 0;
     top: 0;
     margin-top: 0;
+    background-image: linear-gradient(rgba(200, 200, 200, 0.20) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 200, 200, 0.20) 1px, transparent 1px);
+    background-size:50px 50px, 50px 50px, 20px 20px, 20px 20px;
+    background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px
 }
 
 #toolbar{
@@ -272,12 +280,6 @@ body {
 
     display: none;
     z-index: 1000;
-}
-
-#mapale_logo{
-position: fixed;
-bottom:0;
-right:0;
 }
 
 #boardino_logo{
