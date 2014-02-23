@@ -136,6 +136,7 @@ body {
     top: 5px;
     width: 50px;
     z-index: 1000;
+    color: #3A3C42;
 }
 
 #toolbar i {
@@ -147,9 +148,9 @@ body {
     height: 40px;
 }
 
-#toolbar i:hover, .tool_enabled {
-    background: black;
-    color: rgba(255, 255, 51, 1);
+.tool_enabled, #toolbar i:hover {
+    background: #3A3C42;
+    color: #FFCD33;
     font-size: 35px;
 }
 
@@ -168,9 +169,14 @@ body {
 #menu {
     position: fixed;
     left: 55px;
-    top: 15px;
+    top: 10px;
     display: none;
     z-index: 1000;
+}
+
+#menu a:hover, #menu ui-icon:hover{
+    color: #FFCD33;
+    background: #3A3C42;
 }
 
 #boardino_logo{
