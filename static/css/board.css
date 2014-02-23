@@ -319,20 +319,17 @@ body {
 #notifications{
     max-width: 300px;
     position: fixed;
+    text-align: center;
+    font-size: 24px;
     top:100px;
     right:0px;
-    color: white;
     z-index: 10000;
+
 }
 
 #connected_users{
     position: relative;
-    right: 0px;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 24px;
-    background-color: green;
-    color: white;
+    top: 5px;
 }
 
 .user_connected{
