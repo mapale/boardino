@@ -16,7 +16,7 @@ body {
     position: fixed;
     left: 5px;
     top: 5px;
-    width: 50px;
+    width: 40px;
     z-index: 1000;
 }
 
@@ -114,33 +114,41 @@ body {
     cursor:pointer;
     background-image: url('/static/images/postit_enabled.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
 }
 
 .postit_tool_disabled{
     cursor:pointer;
     background-image: url('/static/images/postit_disabled.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
+}
+
+.postit_tool_disabled:hover{
+    background-image: url('/static/images/postit_enabled.png');
 }
 
 .pencil_tool_disabled{
     cursor:pointer;
     background-image: url('/static/images/pencil_disabled.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     float: left;
+}
+
+.pencil_tool_disabled:hover{
+    background-image: url('/static/images/pencil_enabled.png');
 }
 
 .pencil_black_tool_enabled{
     cursor:pointer;
     background-image: url('/static/images/pencil_enabled.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     float: left;
 }
 
@@ -148,144 +156,164 @@ body {
     cursor:pointer;
     background-image: url('/static/images/pencil_disabled.png');
     display: none;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     float: left;
 }
 
 .pencil_red_tool_enabled{
     cursor:pointer;
-    background-image: url('/static/images/pencil_red_enabled.png');
+    background-image: url('/static/images/pencil_red.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     float: left;
 }
 
 .pencil_red_tool_disabled{
     cursor:pointer;
-    background-image: url('/static/images/pencil_red_disabled.png');
+    background-image: url('/static/images/pencil_red.png');
     display: none;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     float: left;
 }
 
 .pencil_blue_tool_enabled{
     cursor:pointer;
-    background-image: url('/static/images/pencil_blue_enabled.png');
+    background-image: url('/static/images/pencil_blue.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     float: left;
 }
 
 .pencil_blue_tool_disabled{
     cursor:pointer;
-    background-image: url('/static/images/pencil_blue_disabled.png');
+    background-image: url('/static/images/pencil_blue.png');
     display: none;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     float: left;
 }
 
 .pencil_green_tool_enabled{
     cursor:pointer;
-    background-image: url('/static/images/pencil_green_enabled.png');
+    background-image: url('/static/images/pencil_green.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     float: left;
 }
 
 .pencil_green_tool_disabled{
     cursor:pointer;
-    background-image: url('/static/images/pencil_green_disabled.png');
+    background-image: url('/static/images/pencil_green.png');
     display: none;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     float: left;
 }
 
 .eraser_tool_enabled{
     background-image: url('/static/images/eraser_enabled.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
 }
 .eraser_tool_disabled{
     cursor:pointer;
     background-image: url('/static/images/eraser_disabled.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
+}
+
+.eraser_tool_disabled:hover{
+    background-image: url('/static/images/eraser_enabled.png');
 }
 
 .rectline_tool_enabled{
     background-image: url('/static/images/rectline_enabled.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
 }
 .rectline_tool_disabled{
     cursor:pointer;
     background-image: url('/static/images/rectline_disabled.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
+}
+
+.rectline_tool_disabled:hover{
+    background-image: url('/static/images/rectline_enabled.png');
 }
 
 .text_tool_enabled{
     background-image: url('/static/images/text_enabled.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
 }
-.text_tool_disabled{
+
+.text_tool_disabled {
     cursor:pointer;
     background-image: url('/static/images/text_disabled.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
+}
+.text_tool_disabled:hover {
+    background-image: url('/static/images/text_enabled.png');
 }
 
 .clear_lines_tool_enabled{
     cursor:pointer;
     background-image: url('/static/images/clear_lines_enabled.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
 }
 
 .clear_lines_tool_disabled{
     cursor:pointer;
-    background-image: url('/static/images/clear_lines_enabled.png');
+    background-image: url('/static/images/clear_lines_disabled.png');
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
+}
+
+.clear_lines_tool_disabled:hover{
+    background-image: url('/static/images/clear_lines_enabled.png');
 }
 
 #menu_tool {
     cursor:pointer;
-    background-image: url('/static/images/menu_icon.jpg');
+    background-image: url('/static/images/menu_icon.png');
     display: block;
-    height: 43px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
+    margin-bottom: 5px;
+}
+
+#menu_tool:hover {
+    background-image: url('/static/images/menu_icon_enabled.png');
 }
 
 #menu {
     position: fixed;
-    left: 55px;
+    left: 45px;
     top: 5px;
-
     display: none;
     z-index: 1000;
 }
 
 #boardino_logo{
-position: fixed;
-top:5px;
-right:5px;
+    position: fixed;
+    top:5px;
+    right:5px;
 }
 
 #notifications{
