@@ -112,6 +112,7 @@ body {
 }
 
 .text_input {
+    font-family: 'Walter Turncoat', cursive;
     -moz-box-sizing:border-box;
     border:none;
     resize: none;
