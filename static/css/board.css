@@ -31,17 +31,6 @@ body {
 #top { top: 0; }
 #bottom { bottom: 0; }
 
-#toolbar{
-    padding-left: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    position: fixed;
-    left: 5px;
-    top: 5px;
-    width: 50px;
-    z-index: 1000;
-}
-
 #board{
     position:absolute;
     top:0;
@@ -137,196 +126,42 @@ body {
     overflow: hidden;
 }
 
-.postit_tool_enabled{
+#toolbar{
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: fixed;
+    left: 5px;
+    top: 5px;
+    width: 50px;
+    z-index: 1000;
+}
+
+#toolbar i {
+    padding-top: 5px;
+    text-align: center;
     cursor:pointer;
-    background-image: url('/static/images/postit_enabled.png');
     display: block;
+    transition: all 300ms linear;
     height: 40px;
-    width: 40px;
 }
 
-.postit_tool_disabled{
-    cursor:pointer;
-    background-image: url('/static/images/postit_disabled.png');
-    display: block;
-    height: 40px;
-    width: 40px;
+#toolbar i:hover, .tool_enabled {
+    background: black;
+    color: rgba(255, 255, 51, 1);
+    font-size: 35px;
 }
 
-.postit_tool_disabled:hover{
-    background-image: url('/static/images/postit_enabled.png');
+#pencil_red_tool {
+    color: red;
 }
 
-.pencil_tool_disabled{
-    cursor:pointer;
-    background-image: url('/static/images/pencil_disabled.png');
-    display: block;
-    height: 40px;
-    width: 40px;
-    float: left;
+#pencil_green_tool {
+    color: green;
 }
 
-.pencil_tool_disabled:hover{
-    background-image: url('/static/images/pencil_enabled.png');
-}
-
-.pencil_black_tool_enabled{
-    cursor:pointer;
-    background-image: url('/static/images/pencil_enabled.png');
-    display: block;
-    height: 40px;
-    width: 40px;
-    float: left;
-}
-
-.pencil_black_tool_disabled{
-    cursor:pointer;
-    background-image: url('/static/images/pencil_disabled.png');
-    display: none;
-    height: 40px;
-    width: 40px;
-    float: left;
-}
-
-.pencil_red_tool_enabled{
-    cursor:pointer;
-    background-image: url('/static/images/pencil_red.png');
-    display: block;
-    height: 40px;
-    width: 40px;
-    float: left;
-}
-
-.pencil_red_tool_disabled{
-    cursor:pointer;
-    background-image: url('/static/images/pencil_red.png');
-    display: none;
-    height: 40px;
-    width: 40px;
-    float: left;
-}
-
-.pencil_blue_tool_enabled{
-    cursor:pointer;
-    background-image: url('/static/images/pencil_blue.png');
-    display: block;
-    height: 40px;
-    width: 40px;
-    float: left;
-}
-
-.pencil_blue_tool_disabled{
-    cursor:pointer;
-    background-image: url('/static/images/pencil_blue.png');
-    display: none;
-    height: 40px;
-    width: 40px;
-    float: left;
-}
-
-.pencil_green_tool_enabled{
-    cursor:pointer;
-    background-image: url('/static/images/pencil_green.png');
-    display: block;
-    height: 40px;
-    width: 40px;
-    float: left;
-}
-
-.pencil_green_tool_disabled{
-    cursor:pointer;
-    background-image: url('/static/images/pencil_green.png');
-    display: none;
-    height: 40px;
-    width: 40px;
-    float: left;
-}
-
-.eraser_tool_enabled{
-    background-image: url('/static/images/eraser_enabled.png');
-    display: block;
-    height: 40px;
-    width: 40px;
-}
-.eraser_tool_disabled{
-    cursor:pointer;
-    background-image: url('/static/images/eraser_disabled.png');
-    display: block;
-    height: 40px;
-    width: 40px;
-}
-
-.eraser_tool_disabled:hover{
-    background-image: url('/static/images/eraser_enabled.png');
-}
-
-.rectline_tool_enabled{
-    background-image: url('/static/images/rectline_enabled.png');
-    display: block;
-    height: 40px;
-    width: 40px;
-}
-.rectline_tool_disabled{
-    cursor:pointer;
-    background-image: url('/static/images/rectline_disabled.png');
-    display: block;
-    height: 40px;
-    width: 40px;
-}
-
-.rectline_tool_disabled:hover{
-    background-image: url('/static/images/rectline_enabled.png');
-}
-
-.text_tool_enabled{
-    background-image: url('/static/images/text_enabled.png');
-    display: block;
-    height: 40px;
-    width: 40px;
-}
-
-.text_tool_disabled {
-    cursor:pointer;
-    background-image: url('/static/images/text_disabled.png');
-    display: block;
-    height: 40px;
-    width: 40px;
-}
-.text_tool_disabled:hover {
-    background-image: url('/static/images/text_enabled.png');
-}
-
-.clear_lines_tool_enabled{
-    cursor:pointer;
-    background-image: url('/static/images/clear_lines_enabled.png');
-    display: block;
-    height: 40px;
-    width: 40px;
-}
-
-.clear_lines_tool_disabled{
-    cursor:pointer;
-    background-image: url('/static/images/clear_lines_disabled.png');
-    display: block;
-    height: 40px;
-    width: 40px;
-}
-
-.clear_lines_tool_disabled:hover{
-    background-image: url('/static/images/clear_lines_enabled.png');
-}
-
-#menu_tool {
-    cursor:pointer;
-    background-image: url('/static/images/menu_icon.png');
-    display: block;
-    height: 40px;
-    width: 40px;
-    margin-bottom: 5px;
-}
-
-#menu_tool:hover {
-    background-image: url('/static/images/menu_icon_enabled.png');
+#pencil_blue_tool {
+    color: blue;
 }
 
 #menu {

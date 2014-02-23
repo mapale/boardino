@@ -7,6 +7,7 @@
     <link href="/static/css/board.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link href='http://fonts.googleapis.com/css?family=Walter+Turncoat' rel='stylesheet' type='text/css'>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <!--<script type="text/javascript" src="/static/js/lib/jquery.ui.touch.js"></script>
     <script type="text/javascript" src="/static/js/lib/jquery.ui.ipad.altfix.js"></script>-->
     <!--<script type="text/javascript">
@@ -45,19 +46,18 @@
         <li><a href="{% url 'board.views.clone' board_hash %}" target="_blank" id="clone-board"><span class="ui-icon ui-icon-squaresmall-plus"></span>Clone this board</a></li>
     </ul>
     <div id="toolbar">
-        <a id="menu_tool"></a>
-        <a id="postit_tool" class="postit_tool_disabled"></a>
-        <a id="text_tool" class="text_tool_disabled"></a>
-        <div id="pencil_tool" style="height:50px; width: 50px">
-            <a id="selected_pencil_tool" class="pencil_tool_disabled"></a>
-            <a id="pencil_black_tool" class="pencil_black_tool_disabled"></a>
-            <a id="pencil_red_tool" class="pencil_red_tool_disabled"></a>
-            <a id="pencil_blue_tool" class="pencil_blue_tool_disabled"></a>
-            <a id="pencil_green_tool" class="pencil_green_tool_disabled"></a>
+        <i id="menu_tool" class="fa fa-list-ul fa-2x"></i>
+        <i id="postit_tool" class="fa fa-file-o fa-2x"></i>
+        <i id="text_tool" class="fa fa-font fa-2x"></i>
+        <div id="pencil_tools">
+            <i id="pencil_black_tool" class="fa fa-pencil fa-2x"></i>
+            <i id="pencil_red_tool" class="fa fa-pencil fa-2x" style="display: none;"></i>
+            <i id="pencil_blue_tool" class="fa fa-pencil fa-2x" style="display: none;"></i>
+            <i id="pencil_green_tool" class="fa fa-pencil fa-2x" style="display: none;"></i>
         </div>
-        <a id="rectline_tool" class="rectline_tool_disabled"></a>
-        <a id="eraser_tool" class="eraser_tool_disabled"></a>
-        <a id="clear_lines_tool" class="clear_lines_tool_disabled"></a>
+        <i id="rectline_tool" class="fa fa-minus fa-2x"></i>
+        <i id="eraser_tool" class="fa fa-eraser fa-2x"></i>
+        <i id="clear_lines_tool" class="fa fa-trash-o fa-2x"></i>
     </div>
     <div id="dialog" title="Cleaning drawings..." style="display: none;">
         Are you sure about this?
