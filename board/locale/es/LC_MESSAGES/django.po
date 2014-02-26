@@ -119,8 +119,7 @@ msgstr "Nuevo nombre"
 
 #: templates/home.html:10
 msgid "Real-time collaborative project management whiteboard"
-msgstr "Tablero para el trabajo colaborativo en tiempo real"
-"Tablero para administración de proyectos colaborativos y en tiempo real"
+msgstr "Tablero para trabajo colaborativo en tiempo real"
 
 #: templates/home.html:19
 msgid "How to Start?"
