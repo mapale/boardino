@@ -44,7 +44,7 @@
                 <h2>{% trans "Your Boardinos" %}</h2>
                 {% if user.is_authenticated %}
                     {% for board in user.get_profile.boardinos.all %}
-                    <p> <a href="/{{ board.hash }}">&raquo; {{ board.hash }}</a></p>
+                    <p> <a href="/{{ board.hash }}">&raquo; {{ board.hash }}</a></>
                     {% endfor %}
                 {% else %}
                     {% if visited_boards %}

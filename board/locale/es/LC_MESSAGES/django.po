@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-26 14:22-0500\n"
+"POT-Creation-Date: 2014-02-26 15:47-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,11 +37,17 @@ msgstr "Comparte este tablero y trabaja colaborativamente en tiempo real!"
 msgid "Come back to check new features!"
 msgstr "Vuelve para ver nuevas funcionalidades!"
 
+#: templates/base.html:9 templates/board.html:6
+#, fuzzy
+msgid "Boardino - Project Management Whiteboard"
+msgstr ""
+"Tablero para administración de proyectos colaborativos y en tiempo real"
+
 #: templates/base.html:30
 msgid "Email or username"
 msgstr "Email o nombre de usuario"
 
-#: templates/base.html:33
+#: templates/base.html:33 templates/board.html:79 templates/board.html.py:81
 #, fuzzy
 msgid "Password"
 msgstr "Cambiar contraseña"
@@ -58,9 +64,62 @@ msgstr "Registro"
 msgid "Logout"
 msgstr "Salir"
 
+#: templates/board.html:45
+msgid "Protect this board"
+msgstr "Protege este tablero"
+
+#: templates/board.html:46
+msgid "Set a name"
+msgstr "Poner un nombre"
+
+#: templates/board.html:47
+msgid "Clone this board"
+msgstr "Clonar este tablero"
+
+#: templates/board.html:71
+msgid "Protect with a password"
+msgstr "Proteger con contraseña"
+
+#: templates/board.html:75
+msgid "There is a password mismatch"
+msgstr "Las contraseñas no coinciden"
+
+#: templates/board.html:85 templates/board.html.py:87
+#, fuzzy
+msgid "Confirm password"
+msgstr "Cambiar contraseña"
+
+#: templates/board.html:93 templates/board.html.py:120
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: templates/board.html:94 templates/board.html.py:121
+msgid "saving..."
+msgstr "guardando..."
+
+#: templates/board.html:94
+msgid "Save"
+msgstr "Guardar"
+
+#: templates/board.html:104
+msgid "Set a name for the board"
+msgstr "Poner un nombre para el tablero"
+
+#: templates/board.html:108
+msgid "Only alphanumeric characters allowed"
+msgstr "Sólo se permiten números o letras"
+
+#: templates/board.html:112
+msgid "Alias"
+msgstr "Nombre"
+
+#: templates/board.html:114
+msgid "New boardino name"
+msgstr "Nuevo nombre"
+
 #: templates/home.html:10
 msgid "Real-time collaborative project management whiteboard"
-msgstr ""
+msgstr "Tablero para el trabajo colaborativo en tiempo real"
 "Tablero para administración de proyectos colaborativos y en tiempo real"
 
 #: templates/home.html:19
