@@ -1,0 +1,173 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-26 14:22-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: views.py:30
+msgid "Please enter a valid email"
+msgstr "Por favor escribe un email válido"
+
+#: views.py:41
+msgid "Subscribed!"
+msgstr "Suscrito!"
+
+#: views.py:65
+msgid "Welcome! Move me! Edit me! Delete me!"
+msgstr "Bienvenido! Muéveme! Edítame! Bórrame"
+
+#: views.py:67
+msgid "Share this board and work together in realtime!"
+msgstr "Comparte este tablero y trabaja colaborativamente en tiempo real!"
+
+#: views.py:74
+msgid "Come back to check new features!"
+msgstr "Vuelve para ver nuevas funcionalidades!"
+
+#: templates/base.html:30
+msgid "Email or username"
+msgstr "Email o nombre de usuario"
+
+#: templates/base.html:33
+#, fuzzy
+msgid "Password"
+msgstr "Cambiar contraseña"
+
+#: templates/base.html:35
+msgid "Sign in"
+msgstr "Entrar"
+
+#: templates/base.html:36
+msgid "Sign up"
+msgstr "Registro"
+
+#: templates/base.html:44
+msgid "Logout"
+msgstr "Salir"
+
+#: templates/home.html:10
+msgid "Real-time collaborative project management whiteboard"
+msgstr ""
+"Tablero para administración de proyectos colaborativos y en tiempo real"
+
+#: templates/home.html:19
+msgid "How to Start?"
+msgstr "¿Cómo empezar?"
+
+#: templates/home.html:20
+msgid "Just click here to create your first Boardino."
+msgstr "Da clik acá para crear tu primer Boardino."
+
+#: templates/home.html:21
+msgid "It is not required to sign-up."
+msgstr "No tienes que registrarte"
+
+#: templates/home.html:26
+msgid "Start &raquo;"
+msgstr "Empezar &raquo;"
+
+#: templates/home.html:32
+msgid "Already started?"
+msgstr "¿Ya empezaste?"
+
+#: templates/home.html:33
+msgid "Enter the id of your Boardino and access it again."
+msgstr "Escribe el nombre de tu Boardino y entra de nuevo"
+
+#: templates/home.html:38
+msgid "Go &raquo;"
+msgstr "Ir &raquo;"
+
+#: templates/home.html:44
+msgid "Your Boardinos"
+msgstr "Tus Boardinos"
+
+#: templates/home.html:55
+msgid "You haven't visited any Boardino yet."
+msgstr "No has visitado ningún Boardino todavía"
+
+#: templates/userena/profile_detail.html:5
+#, python-format
+msgid "%(username)s's profile."
+msgstr ""
+
+#: templates/userena/profile_detail.html:18
+#: templates/userena/profile_form.html:13
+msgid "View profile"
+msgstr "Ver perfil"
+
+#: templates/userena/profile_detail.html:19
+msgid "Edit details"
+msgstr "Editar detalles"
+
+#: templates/userena/profile_detail.html:20
+#: templates/userena/profile_form.html:15
+msgid "Change password"
+msgstr "Cambiar contraseña"
+
+#: templates/userena/profile_detail.html:21
+#: templates/userena/profile_form.html:16
+msgid "Change email"
+msgstr "Cambiar email"
+
+#: templates/userena/profile_detail.html:29
+msgid "Your mugshot"
+msgstr "Tu foto"
+
+#: templates/userena/profile_detail.html:39
+msgid "Name"
+msgstr "Nombre"
+
+#: templates/userena/profile_detail.html:43
+msgid "Email"
+msgstr "Email"
+
+#: templates/userena/profile_detail.html:47
+msgid "Age"
+msgstr "Edad"
+
+#: templates/userena/profile_detail.html:51
+msgid "Website"
+msgstr "Sitio web"
+
+#: templates/userena/profile_detail.html:55
+msgid "Location"
+msgstr "Ubicación"
+
+#: templates/userena/profile_detail.html:59
+msgid "About me"
+msgstr "Acerca de mí"
+
+#: templates/userena/profile_form.html:5
+msgid "Account setup"
+msgstr "Configuración de cuenta"
+
+#: templates/userena/profile_form.html:7
+#, python-format
+msgid "Account &raquo; %(username)s"
+msgstr ""
+
+#: templates/userena/profile_form.html:14
+msgid "Edit profile"
+msgstr "Editar perfil"
+
+#: templates/userena/profile_form.html:20
+msgid "Edit Profile"
+msgstr "Editar perfil"
+
+#: templates/userena/profile_form.html:23
+msgid "Save changes"
+msgstr "Guardar cambios"
