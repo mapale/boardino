@@ -15,7 +15,10 @@
     <div class="container">
         <!-- Example row of columns -->
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-4" style="text-align: center">
+                <div style="text-align: center">
+                <i class="fa fa-rocket fa-5x" ></i>
+                </div>
                 <h2>{% trans "How to Start?" %}</h2>
                 <p>{% trans "Just click here to create your first Boardino." %}</p>
                 <p>{% trans "It is not required to sign-up." %}</p>
@@ -28,7 +31,10 @@
 
                 </p>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4" style="text-align: center">
+                <div style="text-align: center">
+                    <i class="fa fa-ticket fa-5x" ></i>
+                </div>
                 <h2>{% trans "Already started?" %}</h2>
                 <p>{% trans "Enter the id of your Boardino and access it again." %}</p>
                 <p>
@@ -40,7 +46,10 @@
                     </div>
                 </p>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4" style="text-align: center">
+                <div style="text-align: center">
+                <i class="fa fa-edit fa-5x" ></i>
+                </div>
                 <h2>{% trans "Your Boardinos" %}</h2>
                 {% if user.is_authenticated %}
                     {% for board in user.get_profile.boardinos.all %}

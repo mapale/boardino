@@ -1,5 +1,17 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
+    /*font-family: 'Walter Turncoat', cursive;*/
+    font-family: 'Walter Turncoat', cursive;
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: linear-gradient(rgba(200, 200, 200, 0.20) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 200, 200, 0.20) 1px, transparent 1px);
+    background-size:28px 28px, 28px 28px, 20px 20px, 20px 20px;
+    background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px
 }
+
+
+h2 {
+    font-family: 'Walter Turncoat', cursive;
+}
+
