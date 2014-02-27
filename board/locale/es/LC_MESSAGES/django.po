@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-26 15:47-0500\n"
+"POT-Creation-Date: 2014-02-26 19:37-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,8 +40,7 @@ msgstr "Vuelve para ver nuevas funcionalidades!"
 #: templates/base.html:9 templates/board.html:6
 #, fuzzy
 msgid "Boardino - Project Management Whiteboard"
-msgstr ""
-"Tablero para administración de proyectos colaborativos y en tiempo real"
+msgstr "Tablero para trabajo colaborativo en tiempo real"
 
 #: templates/base.html:30
 msgid "Email or username"
