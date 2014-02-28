@@ -1,11 +1,14 @@
 from django.db import models
 import hashlib, time
 
+# Board Class
 class Board(models.Model):
-
+    # Attributes
     password = models.CharField(default="", blank=True, max_length=20)
     hash = models.CharField(max_length=30, null=True, unique=True,
                             error_messages={'unique':'A Board with this alias already exists'})
+
+    # Hash generation
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
@@ -13,6 +16,8 @@ class Board(models.Model):
             self.hash = self.generate_hash()
         return super(Board, self).save(force_insert, force_update, using, update_fields)
 
+    # Let generate a hash code that makes references to the properly board's id
+    # Use SHA-2
     def generate_hash(self):
         while True:
             hash = hashlib.sha256(str(time.time())).hexdigest()[:8]
@@ -28,8 +33,10 @@ class Board(models.Model):
         return str(self.id)
 
 
+# PostIt Class
 class PostIt(models.Model):
-    board = models.ForeignKey(Board)
+    # Attributes
+    board = models.ForeignKey(Board) # Foreign key to Board Model
     x = models.IntegerField()
     y = models.IntegerField()
     width = models.IntegerField()
@@ -52,8 +59,11 @@ class PostIt(models.Model):
     def __unicode__(self):
         return str(self.id)
 
+
+# Text Class
 class Text(models.Model):
-    board = models.ForeignKey(Board)
+    # Attributes
+    board = models.ForeignKey(Board) # Foreign key to Board Model
     x = models.IntegerField()
     y = models.IntegerField()
     width = models.IntegerField()
@@ -69,7 +79,8 @@ class Text(models.Model):
         return clone
 
 class Line(models.Model):
-    board = models.ForeignKey(Board)
+    # Attributes
+    board = models.ForeignKey(Board) # Foreign key to Board Model
     color_l = models.TextField(default="000000")
     stroke_w = models.IntegerField()
     path = models.TextField(null=True, blank=True)

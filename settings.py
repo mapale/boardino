@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 
 import dj_database_url
 DATABASES = {
-    'default': dj_database_url.config(default='mysql://root:password@localhost/whiteboard')
+    'default': dj_database_url.config(default='mysql://root@localhost/whiteboard')
 }
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
@@ -106,6 +106,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
+# Userena Settings
 AUTHENTICATION_BACKENDS = (
     'userena.backends.UserenaAuthenticationBackend',
     'guardian.backends.ObjectPermissionBackend',
@@ -125,15 +126,18 @@ USERENA_ACTIVATION_REQUIRED = False
 USERENA_SIGNIN_REDIRECT_URL = '/'
 USERENA_REDIRECT_ON_SIGNOUT = '/'
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 ROOT_URLCONF = 'urls'
 
+# Board's templates path
 TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__), 'board', 'templates'),
 
 )
 
+# Installed apps to Boardino
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',

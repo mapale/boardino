@@ -2,24 +2,35 @@ from rest_framework import serializers
 from board.models import PostIt, Line, Board, Text
 
 
+# Serializers
+# Return information from each model, to be consumed by API
+
+# PostIt Serializer
+# Return: id, x, y, with, height, text and back_color
 class PostitSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostIt
         fields = ['id','x','y','width','height','text','back_color']
 
 
+# Text Serializer
+# Return: id, x, y, witdh, height and text
 class TextSerializer(serializers.ModelSerializer):
     class Meta:
         model = Text
         fields = ['id','x','y','width','height', 'text']
 
 
+# Line Serializer
+# Return: id, color_l, stroke_w and path
 class LineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Line
         fields = ['id', 'color_l','stroke_w','path']
 
 
+# Board Serializer
+# Return: has and password
 class BoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Board

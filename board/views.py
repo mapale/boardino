@@ -14,7 +14,7 @@ from board.models import Board, PostIt, Line, Text
 from board.serializers import PostitSerializer, LineSerializer, BoardSerializer, TextSerializer
 
 
-
+# Main Page where you can see the created boards if you're authenticated
 def home(request):
     visited_boards = []
     if 'visited' in request.session:
@@ -23,9 +23,10 @@ def home(request):
                               {'visited_boards': visited_boards, 'board_form': BoardForm()},
                               context_instance=RequestContext(request))
 
+# Let you join to an existing board
 @csrf_exempt
 def subscribe(request):
-
+    # Chech if you pass a correct email
     if "email" not in request.POST or not validateEmail(request.POST["email"]):
         json_data = json.dumps({"result":_("Please enter a valid email")})
         return HttpResponse(json_data, mimetype="application/json")
@@ -43,6 +44,7 @@ def subscribe(request):
     else:
         return HttpResponse(status=400)
 
+# Validates email
 def validateEmail(email):
     from django.core.validators import validate_email
     from django.core.exceptions import ValidationError
@@ -52,6 +54,7 @@ def validateEmail(email):
     except ValidationError:
         return False
 
+# Let create a new board with default PostIts
 def create_board(request):
 
     if request.POST:
@@ -83,10 +86,13 @@ def create_board(request):
 
     return HttpResponseRedirect("/")
 
+# Authorize the access to a new person if has the correct password that was assigned to the board
 def authorize_board(request, board_hash):
+    # Get the board or show a 404 page
     board = get_object_or_404(Board, hash=board_hash)
     if request.POST:
         password = request.POST["password"]
+        # Verify if the board has a password
         if password==board.password:
             request.session['board_'+str(board.id)] = {"authorized":True}
             return HttpResponseRedirect("/"+board_hash)
@@ -95,11 +101,15 @@ def authorize_board(request, board_hash):
     else:
         return render_to_response('authorize.html',{'board': board}, context_instance=RequestContext(request))
 
+# Show a specific board
 def board(request, board_hash):
+    # Get the board or show a 404 page
     board = get_object_or_404(Board, hash=board_hash)
+    # Verify if the board has a password
     if board.password:
         if 'board_'+str(board.id) not in request.session:
             return HttpResponseRedirect("/"+board_hash+"/authorize")
+    # Chech if the user is authenticared
     if request.user.is_authenticated() :
         profile = request.user.get_profile()
         profile.boardinos.add(board)
@@ -112,9 +122,12 @@ def board(request, board_hash):
         request.session['visited'] = [board_hash]
     return render_to_response('board.html',{'board_hash': board.hash, 'postits':board.postit_set.all()}, context_instance=RequestContext(request))
 
+# Clear all drawed lines of the board
 @csrf_exempt
 def clear_lines(request, board_hash):
+    # Get the board or show a 404 page
     board = get_object_or_404(Board, hash=board_hash)
+    # Delete all lines
     Line.objects.filter(board=board).delete()
 
     json_data = json.dumps({"result":"OK"})
@@ -124,7 +137,9 @@ def clear_lines(request, board_hash):
     else:
         return HttpResponse(status=400)
 
+# Clone a board with all their elements
 def clone(request, board_hash):
+    # Get the board or show a 404 page
     board = get_object_or_404(Board, hash=board_hash)
     new_board = Board()
     new_board.save()
@@ -141,13 +156,15 @@ def clone(request, board_hash):
 
     return HttpResponseRedirect("/"+new_board.hash)
 
+
+# API
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
         'postits':reverse('postit-list', request=request)
     })
 
-
+# Return a json file with a PostIt list with their respectly attributes each one (authorized attributes in PostistSerializer)
 class PostitList(generics.ListCreateAPIView):
     model = PostIt
     serializer_class = PostitSerializer
@@ -162,12 +179,12 @@ class PostitList(generics.ListCreateAPIView):
         board = get_object_or_404(Board, hash=board_hash)
         postit.board = board
 
-
+# Return a json file with a specific PostIt with their respectly attributes (authorized attributes in PostistSerializer)
 class PostitDetail(generics.RetrieveUpdateDestroyAPIView):
     model = PostIt
     serializer_class = PostitSerializer
 
-
+# Return a json file with a Text list with their respectly attributes each one (authorized attributes in TextSerializer)
 class TextList(generics.ListCreateAPIView):
     model = Text
     serializer_class = TextSerializer
@@ -182,12 +199,12 @@ class TextList(generics.ListCreateAPIView):
         board = get_object_or_404(Board, hash=board_hash)
         text.board = board
 
-
+# Return a json file with a specific Text with their respectly attributes (authorized attributes in TextSerializer)
 class TextDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Text
     serializer_class = TextSerializer
 
-
+# Return a json file with a Line list with their respectly attributes each one (authorized attributes in LineSerializer)
 class LineList(generics.ListCreateAPIView):
     model = Line
     serializer_class = LineSerializer
@@ -202,10 +219,12 @@ class LineList(generics.ListCreateAPIView):
         board = get_object_or_404(Board, hash=board_hash)
         line.board = board
 
+# Return a json file with a specific Line with their respectly attributes (authorized attributes in LineSerializer)
 class LineDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Line
     serializer_class = LineSerializer
 
+# Return a specific Board
 class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Board
     serializer_class = BoardSerializer

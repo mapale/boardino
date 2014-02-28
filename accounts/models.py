@@ -3,7 +3,7 @@ from django.db import models
 from userena.models import UserenaBaseProfile
 from board.models import Board
 
-
+# UserProfile Class
 class UserProfile(UserenaBaseProfile):
     user = models.OneToOneField(User, unique=True)
     boardinos = models.ManyToManyField(Board)
