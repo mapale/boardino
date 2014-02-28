@@ -1,12 +1,13 @@
 {% extends "base.html" %}
+{% load i18n %}
     {% block content %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
+    <div class="jumbotron" style="text-align: center">
         <div class="container">
             <div id="logo">
                 <img src="/static/images/logo_big.png"/>
             </div>
-            <h2>Real-time collaborative project management whiteboard</h2>
+            <h2>{% trans "Real-time collaborative project management whiteboard" %}</h2>
             <!--<p><a class="btn btn-primary btn-lg">Learn more &raquo;</a></p>-->
         </div>
     </div>
@@ -14,36 +15,45 @@
     <div class="container">
         <!-- Example row of columns -->
         <div class="row">
-            <div class="col-lg-4">
-                <h2>How to Start?</h2>
-                <p>Just click here to create your first Boardino.</p>
-                <p>It is not required to sign-up.</p>
+            <div class="col-lg-4" style="text-align: center">
+                <div style="text-align: center">
+                <i class="fa fa-rocket fa-5x" ></i>
+                </div>
+                <h2>{% trans "How to Start?" %}</h2>
+                <p>{% trans "Just click here to create your first Boardino." %}</p>
+                <p>{% trans "It is not required to sign-up." %}</p>
                 <p>
                 <form action="/new" method="post">
                     {% csrf_token %}
                     {{ board_form }}
-                    <input type="submit" class="btn btn-success" href="/new" rel="nofollow" value="Start &raquo;"/>
+                    <input type="submit" class="btn btn-success" href="/new" rel="nofollow" value="{% trans "Start &raquo;" %}"/>
                 </form>
 
                 </p>
             </div>
-            <div class="col-lg-4">
-                <h2>Already started?</h2>
-                <p>Enter the id of your Boardino and access it again.</p>
+            <div class="col-lg-4" style="text-align: center">
+                <div style="text-align: center">
+                    <i class="fa fa-ticket fa-5x" ></i>
+                </div>
+                <h2>{% trans "Already started?" %}</h2>
+                <p>{% trans "Enter the id of your Boardino and access it again." %}</p>
                 <p>
                     <div class="input-group">
                         <input id="board-id" placeholder="id" class="form-control">
                         <span class="input-group-btn">
-                            <button id="go-button" class="btn btn-success" type="button">Go &raquo;</button>
+                            <button id="go-button" class="btn btn-success" type="button">{% trans "Go &raquo;" %}</button>
                         </span>
                     </div>
                 </p>
             </div>
-            <div class="col-lg-4">
-                <h2>Your Boardinos</h2>
+            <div class="col-lg-4" style="text-align: center">
+                <div style="text-align: center">
+                <i class="fa fa-edit fa-5x" ></i>
+                </div>
+                <h2>{% trans "Your Boardinos" %}</h2>
                 {% if user.is_authenticated %}
                     {% for board in user.get_profile.boardinos.all %}
-                    <p> <a href="/{{ board.hash }}">&raquo; {{ board.hash }}</a></li>
+                    <p> <a href="/{{ board.hash }}">&raquo; {{ board.hash }}</a></>
                     {% endfor %}
                 {% else %}
                     {% if visited_boards %}
@@ -51,21 +61,20 @@
                             <p><a href="/{{ board_hash }}" >&raquo; {{ board_hash }}</a></p>
                         {% endfor %}
                     {% else %}
-                        <p>You haven't visited any Boardino yet.</p>
+                        <p>{% trans "You haven't visited any Boardino yet." %}</p>
                     {% endif %}
                 {% endif %}
             </div>
         </div>
 
         <hr>
-        <a href="https://github.com/mapale/boardino">
+        <!--<a href="https://github.com/mapale/boardino">
             <img style="position: absolute; top: 0; left: 0; border: 0; width: 149px; height: 149px; z-index: 2000"
                  src="http://aral.github.com/fork-me-on-github-retina-ribbons/left-orange@2x.png"
                  alt="Fork me on GitHub">
-        </a>
+        </a>-->
         <footer>
-            <p>&copy; Mapalé Software 2013</p>
+            <p>&copy; Mapalé Software 2014</p>
         </footer>
     </div> <!-- /container -->
     {% endblock %}
-    

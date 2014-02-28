@@ -1,8 +1,9 @@
+{% load i18n %}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Boardino - Project Management Whiteboard</title>
+    <title>{% trans "Boardino - Project Management Whiteboard" %}</title>
     <link href="/static/css/bootstrap.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link href='http://fonts.googleapis.com/css?family=Walter+Turncoat' rel='stylesheet' type='text/css'>
@@ -41,9 +42,9 @@
 <div id="top"></div>
 <div id="bottom"></div>-->
     <ul id="menu">
-        <li><a href="#" id="set-password"><span class="ui-icon ui-icon-locked"></span>Set password</a></li>
-        <li><a href="#" id="set-alias"><span class="ui-icon ui-icon-tag"></span>Set an alias</a></li>
-        <li><a href="{% url 'board.views.clone' board_hash %}" target="_blank" id="clone-board"><span class="ui-icon ui-icon-squaresmall-plus"></span>Clone this board</a></li>
+        <li><a href="#" id="set-password"><span class="ui-icon ui-icon-locked"></span>{% trans "Protect this board" %}</a></li>
+        <li><a href="#" id="set-alias"><span class="ui-icon ui-icon-tag"></span>{% trans "Set a name"%}</a></li>
+        <li><a href="{% url 'board.views.clone' board_hash %}" target="_blank" id="clone-board"><span class="ui-icon ui-icon-squaresmall-plus"></span>{% trans "Clone this board"%}</a></li>
     </ul>
     <div id="toolbar">
         <i id="menu_tool" class="fa fa-list-ul fa-2x"></i>
@@ -67,30 +68,30 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Set boardino password</h4>
+                    <h4 class="modal-title">{% trans "Protect with a password"%}</h4>
                 </div>
                 <div class="modal-body">
                     <div id="set-password-error" class="alert alert-danger" style="display: none">
-                        <span id="set-password-error-msg">There is a password mismatch</span>
+                        <span id="set-password-error-msg">{% trans "There is a password mismatch" %}</span>
                     </div>
                     <div class="form-horizontal" role="form">
                         <div class="form-group">
-                            <label for="board-password" class="col-lg-2 control-label">Password</label>
+                            <label for="board-password" class="col-lg-2 control-label">{% trans "Password"%}</label>
                             <div class="col-lg-10">
-                                <input type="password" class="form-control" id="board-password" placeholder="Password">
+                                <input type="password" class="form-control" id="board-password" placeholder="{% trans "Password" %}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="board-password2" class="col-lg-2 control-label">Confirm password</label>
+                            <label for="board-password2" class="col-lg-2 control-label">{% trans "Confirm password"%}</label>
                             <div class="col-lg-10">
-                                <input type="password" class="form-control" id="board-password2" placeholder="Confirm password">
+                                <input type="password" class="form-control" id="board-password2" placeholder="{% trans "Confirm password"%}">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="set-password-btn" data-loading-text="saving..." >Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+                    <button type="button" class="btn btn-primary" id="set-password-btn" data-loading-text="{% trans "saving..." %}" >{% trans "Save" %}</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -100,24 +101,24 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Set boardino alias</h4>
+                    <h4 class="modal-title">{% trans "Set a name for the board" %}</h4>
                 </div>
                 <div class="modal-body">
                     <div id="set-alias-error" class="alert alert-danger" style="display: none">
-                        <span id="set-alias-error-msg">Only alphanumeric characters allowed</span>
+                        <span id="set-alias-error-msg">{% trans "Only alphanumeric characters allowed"%}</span>
                     </div>
                     <div class="form-horizontal" role="form">
                         <div class="form-group">
-                            <label for="board-alias" class="col-lg-2 control-label">Alias</label>
+                            <label for="board-alias" class="col-lg-2 control-label">{% trans "Alias" %}</label>
                             <div class="col-lg-10">
-                                <input class="form-control" id="board-alias" placeholder="New boardino alias">
+                                <input class="form-control" id="board-alias" placeholder="{% trans "New boardino name" %}">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="set-alias-btn" data-loading-text="saving..." >Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+                    <button type="button" class="btn btn-primary" id="set-alias-btn" data-loading-text="{% trans "saving..." %}" >{% trans Save%}</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
