@@ -1,6 +1,6 @@
 from django.conf.urls import include, patterns, url
 from rest_framework.urlpatterns import format_suffix_patterns
-from board.views import PostitList, PostitDetail, LineList, LineDetail, BoardDetail, TextList, TextDetail
+from board.views import PostitList, PostitDetail, LineList, LineDetail, BoardDetail, ProfileDetail
 
 # Urls Patterns
 urlpatterns = patterns('board.views',
@@ -33,7 +33,8 @@ urlpatterns = patterns('board.views',
     url(r'^api/boards/(?P<board_hash>\w+)/lines/$', LineList.as_view(), name='line-list'),
     # Specific Line
     url(r'^api/boards/(?P<board_hash>\w+)/lines/(?P<pk>\d+)$', LineDetail.as_view(), name='line-detail'),
-    
+    url(r'^api/profile/$', ProfileDetail.as_view(), name='user-profile-detail'),
+
     url(r'^(?P<board_hash>\w+)$', 'board'),
     url(r'^(?P<board_hash>\w+)/clone/$', 'clone', name="clone-board"),
     url(r'^(?P<board_hash>\w+)/authorize', 'authorize_board', name="board-authorization"),
