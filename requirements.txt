@@ -1,4 +1,3 @@
---allow-unverified PIL
 django
 dj-database-url
 dj-static
@@ -14,6 +13,5 @@ djangorestframework
 markdown
 pyyaml
 django-userena
-PIL
 mock
 django-simple-captcha
