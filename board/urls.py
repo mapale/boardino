@@ -1,6 +1,6 @@
 from django.conf.urls import include, patterns, url
 from rest_framework.urlpatterns import format_suffix_patterns
-from board.views import PostitList, PostitDetail, LineList, LineDetail, BoardDetail, ProfileDetail
+from board.views import PostitList, PostitDetail, LineList, LineDetail, BoardDetail, ProfileDetail, TextDetail, TextList
 
 # Urls Patterns
 urlpatterns = patterns('board.views',

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from board.models import PostIt, Line, Board
+from board.models import PostIt, Line, Board, Text
 from accounts.models import UserProfile
 from django.contrib.auth.models import User
 
