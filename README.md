@@ -1,5 +1,6 @@
 # Boardino
 
+[![Build Status](https://travis-ci.org/mapale/boardino.png)](https://travis-ci.org/mapale/boardino)
 
 ## What is Boardino?
 
@@ -86,6 +87,3 @@ Includes project javascript boardino-frontend.
 
 Open-pusher: [https://github.com/mapale/open-pusher](https://github.com/mapale/open-pusher)
 Includes Websockets server (tornadio2).
-
-
-[![Build Status](https://travis-ci.org/mapale/boardino.png)](https://travis-ci.org/mapale/boardino)
