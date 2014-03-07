@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from board.models import PostIt, Line, Board, Text
+from accounts.models import UserProfile
+from django.contrib.auth.models import User
 
 
 # Serializers
@@ -40,4 +42,14 @@ class BoardSerializer(serializers.ModelSerializer):
         ret = super(BoardSerializer, self).to_native(obj)
         del ret['password']
         return ret
-  
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id','username']
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = UserProfile 

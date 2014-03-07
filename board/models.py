@@ -78,6 +78,7 @@ class Text(models.Model):
         clone.height = self.height
         return clone
 
+# Text Class
 class Line(models.Model):
     # Attributes
     board = models.ForeignKey(Board) # Foreign key to Board Model

@@ -11,7 +11,8 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from board.forms import BoardForm
 from board.models import Board, PostIt, Line, Text
-from board.serializers import PostitSerializer, LineSerializer, BoardSerializer, TextSerializer
+from board.serializers import PostitSerializer, LineSerializer, BoardSerializer, UserProfileSerializer, TextSerializer
+from accounts.models import UserProfile
 
 
 # Main Page where you can see the created boards if you're authenticated
@@ -110,7 +111,7 @@ def board(request, board_hash):
         if 'board_'+str(board.id) not in request.session:
             return HttpResponseRedirect("/"+board_hash+"/authorize")
     # Chech if the user is authenticared
-    if request.user.is_authenticated() :
+    if request.user.is_authenticated():
         profile = request.user.get_profile()
         profile.boardinos.add(board)
         profile.save()
@@ -236,3 +237,14 @@ class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
     def post_save(self, board, created=False):
         if 'board_'+str(board.id) in self.request.session:
             del self.request.session['board_'+str(board.id)]
+
+class ProfileDetail(generics.RetrieveUpdateAPIView):
+    model = UserProfile
+    serializer_class = UserProfileSerializer
+
+    def get_object(self):
+        if not self.request.user.is_authenticated():
+            return None
+        profile = get_object_or_404(UserProfile, user=self.request.user)
+        return profile
+    
