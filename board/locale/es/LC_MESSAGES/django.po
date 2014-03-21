@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-20 21:40-0500\n"
+"POT-Creation-Date: 2014-03-20 21:59-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,22 +138,18 @@ msgid "Start &raquo;"
 msgstr "Empezar &raquo;"
 
 #: templates/home.html:38
-msgid "Already started?"
-msgstr "¿Ya empezaste?"
+msgid "Real-Time Collaboration"
+msgstr "Colaboración en tiempo real"
 
 #: templates/home.html:39
-msgid "Enter the id of your Boardino and access it again."
-msgstr "Escribe el nombre de tu Boardino y entra de nuevo"
+msgid "Share your board to collaboratively work with your team."
+msgstr "Comparte tu tablero para trabajar en colaboración con tu equipo."
 
-#: templates/home.html:44
-msgid "Go &raquo;"
-msgstr "Ir &raquo;"
-
-#: templates/home.html:53
+#: templates/home.html:45
 msgid "Your Boardinos"
 msgstr "Tus Boardinos"
 
-#: templates/home.html:64
+#: templates/home.html:56
 msgid "You haven't visited any Boardino yet."
 msgstr "No has visitado ningún Boardino todavía"
 
@@ -229,6 +225,15 @@ msgstr "Editar perfil"
 #: templates/userena/profile_form.html:23
 msgid "Save changes"
 msgstr "Guardar cambios"
+
+#~ msgid "Already started?"
+#~ msgstr "¿Ya empezaste?"
+
+#~ msgid "Enter the id of your Boardino and access it again."
+#~ msgstr "Escribe el nombre de tu Boardino y entra de nuevo"
+
+#~ msgid "Go &raquo;"
+#~ msgstr "Ir &raquo;"
 
 #~ msgid "How to Start?"
 #~ msgstr "¿Cómo empezar?"
