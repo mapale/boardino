@@ -161,6 +161,9 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 )
 
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+CAPTCHA_NOISE_FUNCTIONS = None
+CAPTCHA_LETTER_ROTATION = None
 
 JASMINE_TEST_DIRECTORY = MEDIA_ROOT+'/js/jasmine'
 # A sample logging configuration. The only tangible logging
