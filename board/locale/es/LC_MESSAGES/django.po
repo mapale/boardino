@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-26 19:37-0500\n"
+"POT-Creation-Date: 2014-03-20 21:40-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,49 +17,49 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: views.py:30
+#: views.py:32
 msgid "Please enter a valid email"
 msgstr "Por favor escribe un email válido"
 
-#: views.py:41
+#: views.py:43
 msgid "Subscribed!"
 msgstr "Suscrito!"
 
-#: views.py:65
+#: views.py:69
 msgid "Welcome! Move me! Edit me! Delete me!"
 msgstr "Bienvenido! Muéveme! Edítame! Bórrame"
 
-#: views.py:67
+#: views.py:71
 msgid "Share this board and work together in realtime!"
 msgstr "Comparte este tablero y trabaja colaborativamente en tiempo real!"
 
-#: views.py:74
+#: views.py:78
 msgid "Come back to check new features!"
 msgstr "Vuelve para ver nuevas funcionalidades!"
 
-#: templates/base.html:9 templates/board.html:6
+#: templates/base.html:11 templates/board.html:6
 #, fuzzy
 msgid "Boardino - Project Management Whiteboard"
 msgstr "Tablero para trabajo colaborativo en tiempo real"
 
-#: templates/base.html:30
+#: templates/base.html:32
 msgid "Email or username"
 msgstr "Email o nombre de usuario"
 
-#: templates/base.html:33 templates/board.html:79 templates/board.html.py:81
+#: templates/base.html:35 templates/board.html:79 templates/board.html.py:81
 #, fuzzy
 msgid "Password"
 msgstr "Cambiar contraseña"
 
-#: templates/base.html:35
+#: templates/base.html:37
 msgid "Sign in"
 msgstr "Entrar"
 
-#: templates/base.html:36
+#: templates/base.html:38
 msgid "Sign up"
 msgstr "Registro"
 
-#: templates/base.html:44
+#: templates/base.html:46
 msgid "Logout"
 msgstr "Salir"
 
@@ -120,39 +120,40 @@ msgstr "Nuevo nombre"
 msgid "Real-time collaborative project management whiteboard"
 msgstr "Tablero para trabajo colaborativo en tiempo real"
 
-#: templates/home.html:19
-msgid "How to Start?"
-msgstr "¿Cómo empezar?"
+#: templates/home.html:22
+msgid "Want to try it?"
+msgstr "¿Quieres probarlo?"
 
-#: templates/home.html:20
-msgid "Just click here to create your first Boardino."
-msgstr "Da clik acá para crear tu primer Boardino."
+#: templates/home.html:23
+#, fuzzy
+msgid "Just solve the math and click start to create your first Boardino."
+msgstr "Resuelve y da clik en empezar para crear tu primer Boardino."
 
-#: templates/home.html:21
+#: templates/home.html:24
 msgid "It is not required to sign-up."
 msgstr "No tienes que registrarte"
 
-#: templates/home.html:26
+#: templates/home.html:29
 msgid "Start &raquo;"
 msgstr "Empezar &raquo;"
 
-#: templates/home.html:32
+#: templates/home.html:38
 msgid "Already started?"
 msgstr "¿Ya empezaste?"
 
-#: templates/home.html:33
+#: templates/home.html:39
 msgid "Enter the id of your Boardino and access it again."
 msgstr "Escribe el nombre de tu Boardino y entra de nuevo"
 
-#: templates/home.html:38
+#: templates/home.html:44
 msgid "Go &raquo;"
 msgstr "Ir &raquo;"
 
-#: templates/home.html:44
+#: templates/home.html:53
 msgid "Your Boardinos"
 msgstr "Tus Boardinos"
 
-#: templates/home.html:55
+#: templates/home.html:64
 msgid "You haven't visited any Boardino yet."
 msgstr "No has visitado ningún Boardino todavía"
 
@@ -228,3 +229,6 @@ msgstr "Editar perfil"
 #: templates/userena/profile_form.html:23
 msgid "Save changes"
 msgstr "Guardar cambios"
+
+#~ msgid "How to Start?"
+#~ msgstr "¿Cómo empezar?"

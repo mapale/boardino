@@ -19,13 +19,13 @@
                 <div style="text-align: center">
                 <i class="fa fa-rocket fa-5x" ></i>
                 </div>
-                <h2>{% trans "How to Start?" %}</h2>
-                <p>{% trans "Just click here to create your first Boardino." %}</p>
+                <h2>{% trans "Want to try it?" %}</h2>
+                <p>{% trans "Just solve the math and click start to create your first Boardino." %}</p>
                 <p>{% trans "It is not required to sign-up." %}</p>
                 <p>
                 <form action="/new" method="post">
                     {% csrf_token %}
-                    {{ board_form }}
+                    {{ board_form.captcha }}
                     <input type="submit" class="btn btn-success" href="/new" rel="nofollow" value="{% trans "Start &raquo;" %}"/>
                 </form>
 
