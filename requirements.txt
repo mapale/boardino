@@ -9,7 +9,7 @@ django_nose
 South
 django_compressor
 BeautifulSoup
-djangorestframework
+djangorestframework==2.3.12
 markdown
 pyyaml
 django-userena
