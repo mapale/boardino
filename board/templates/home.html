@@ -19,13 +19,13 @@
                 <div style="text-align: center">
                 <i class="fa fa-rocket fa-5x" ></i>
                 </div>
-                <h2>{% trans "How to Start?" %}</h2>
-                <p>{% trans "Just click here to create your first Boardino." %}</p>
+                <h2>{% trans "Want to try it?" %}</h2>
+                <p>{% trans "Just solve the math and click start to create your first Boardino." %}</p>
                 <p>{% trans "It is not required to sign-up." %}</p>
                 <p>
                 <form action="/new" method="post">
                     {% csrf_token %}
-                    {{ board_form }}
+                    {{ board_form.captcha }}
                     <input type="submit" class="btn btn-success" href="/new" rel="nofollow" value="{% trans "Start &raquo;" %}"/>
                 </form>
 
@@ -33,18 +33,10 @@
             </div>
             <div class="col-lg-4" style="text-align: center">
                 <div style="text-align: center">
-                    <i class="fa fa-ticket fa-5x" ></i>
+                    <i class="fa fa-users fa-5x" ></i>
                 </div>
-                <h2>{% trans "Already started?" %}</h2>
-                <p>{% trans "Enter the id of your Boardino and access it again." %}</p>
-                <p>
-                    <div class="input-group">
-                        <input id="board-id" placeholder="id" class="form-control">
-                        <span class="input-group-btn">
-                            <button id="go-button" class="btn btn-success" type="button">{% trans "Go &raquo;" %}</button>
-                        </span>
-                    </div>
-                </p>
+                <h2>{% trans "Real-Time Collaboration" %}</h2>
+                <p>{% trans "Share your board to collaboratively work with your team." %}</p>
             </div>
             <div class="col-lg-4" style="text-align: center">
                 <div style="text-align: center">
