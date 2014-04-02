@@ -1,6 +1,5 @@
 .idea/
 .DS_Store
-static/js/application.js
 *.pyc
 *.iml
 *.ipr
