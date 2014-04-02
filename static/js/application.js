@@ -149,10 +149,6 @@ function($, MainView, BoardView, BoardCanvas, BoardConnection, BoardMessageHandl
             }));
 
             toolbar.addTool($("#pencil_black_tool").tool(toolbar, {
-                    "action": function(){}
-            }));
-
-            toolbar.addTool($("#pencil_black_tool").tool(toolbar, {
                     "action": function(){
                         $("#board").css('cursor','url(/static/images/pencil_disabled.ico),default');
                         boardView.selectPencilTool("black");
@@ -188,7 +184,8 @@ function($, MainView, BoardView, BoardCanvas, BoardConnection, BoardMessageHandl
                         boardView.clearLines();
                     },
                     "confirmable": true,
-                    "exclusive": false
+                    "exclusive": false,
+                    "keep_selected": false
             }));
 
             toolbar.addTool($("#rectline_tool").tool(toolbar, {
@@ -198,12 +195,20 @@ function($, MainView, BoardView, BoardCanvas, BoardConnection, BoardMessageHandl
                     }
             }));
 
-          toolbar.addTool($("#text_tool").tool(toolbar, {
-            "action": function(){
-                $("#board").css('cursor','crosshair');
-                boardView.selectTextTool();
-            }
-          }));
+            toolbar.addTool($("#text_tool").tool(toolbar, {
+                    "action": function(){
+                        $("#board").css('cursor','crosshair');
+                        boardView.selectTextTool();
+                    }
+            }));
+
+            toolbar.addTool($("#undo-tool").tool(toolbar, {
+                "action": function(){
+                    boardView.undo();
+                },
+                "exclusive": false,
+                "keep_selected": false
+            }));
         }
   };
 
@@ -453,7 +458,7 @@ function($) {
                 if(args["obj"]==="postit") {
                     _this.boardView.deletePostit(args["id"]);
                 } else if(args["obj"]==="line") {
-                    _this.boardView.deleteLine(args["id"]);
+                    _this.boardView.onDeletedLine(args["id"]);
                 } else if(args["obj"]==="text") {
                   _this.boardView.deleteText(args["id"]);
                 }
@@ -563,6 +568,121 @@ define('app/collections/texts',[
   });
 
 
+/* globals define:false, io:false, window:false, $:false */
+define("app/history",[
+    'app/models/postit',
+    'app/models/text',
+    'app/models/line'
+],
+
+function(Postit, Text, Line) {
+
+    var History = function(boardView) {
+        this.boardView = boardView;
+        this.size = 10;
+        this.stacker = new Array(this.size);
+        this.pointer = 0;
+    };
+
+    History.prototype.push = function(data) {
+        // if(this.isFull() === false) {
+            this.stacker[this.pointer] = data;
+            this.pointer++;
+            return true;
+        // }
+        // else {
+        //     return false;
+        // }
+    };
+      
+    History.prototype.pop = function() {
+        if(this.isEmpty !== true) {
+            this.pointer--;
+            return this.stacker[this.pointer];
+        }
+        else {
+            return false;
+        }
+    };
+  
+    History.prototype.isEmpty = function() {
+        return this.pointer === 0;
+    };
+
+    History.prototype.isFull = function(){
+        return this.pointer === this.size;
+    };
+
+    History.prototype.add = function(action, data) {
+        this.push({action: action, data: data});
+    };
+
+    History.prototype.undo = function() {
+        var lastAction = this.pop();
+        if (lastAction) {
+            switch(lastAction.action) {
+                case "removed_postit":
+                    var postit = new Postit({
+                        "x": lastAction.data.get("x"),
+                        "y": lastAction.data.get("y"),
+                        "width": lastAction.data.get("width"),
+                        "height": lastAction.data.get("height"),
+                        "back_color": lastAction.data.get("back_color"),
+                        "text": lastAction.data.get("text")
+                    });
+                    this.boardView.addPostit(postit);
+                    break;
+                case "removed_text":
+                    var text = new Text({
+                        text: lastAction.data.get("text"),
+                        x: lastAction.data.get("x"),
+                        y: lastAction.data.get("y"),
+                        width: lastAction.data.get("width"),
+                        height: lastAction.data.get("height")
+                    });
+                    this.boardView.addText(text);
+                    break;
+                case "added_line":
+                    var line = lastAction.data;
+                    this.boardView.deleteLine(line);
+                    break;
+                case "deleted_line":
+                    var deletedLine = lastAction.data;
+                    var recreatedLine = new Line({
+                        path: deletedLine.get("path"),
+                        color_l: deletedLine.get("color_l"),
+                        stroke_w: deletedLine.get("stroke_w")
+                    });
+                    recreatedLine.type = deletedLine.type;
+
+                    this.boardView.canvas.drawLine(recreatedLine);
+                    var _aThis = this;
+                    this.boardView.canvas.saveLine(recreatedLine, {x: 1, y:1}, function(){
+                        _aThis.boardView.boardConnection.finishPath(recreatedLine.get("id"));
+                    });
+
+                    break;
+
+                case "added_postit":
+                    var added_postit = lastAction.data;
+                    added_postit.destroy();
+                    break;
+                case "changed_postit_color":
+                    var changedPostit = lastAction.data.postit;
+                    var prevColor = lastAction.data.prevColor;
+                    var _this = this;
+                    changedPostit.save({"back_color": prevColor}, {
+                        success: function(){
+                            _this.boardView.boardConnection.changePostitColor(changedPostit.get("id"), prevColor, prevColor);
+                        }
+                    });
+            }
+        }
+    };
+
+    return History;
+});
+
 /*globals define:false*/
 define('app/models/board',[
   'backbone'
@@ -653,8 +773,9 @@ function($) {
         $.fn.tool = function(toolbar, options){
 
             var settings = $.extend({
-                                        'element': this,
-                                        'exclusive': true
+                'element': this,
+                'exclusive': true,
+                'keep_selected': true
             }, options);
 
             this.click(function(){
@@ -663,7 +784,9 @@ function($) {
                         otherTool.element.removeClass('tool_enabled');
                     });
                 }
-                $(this).addClass('tool_enabled');
+                if(settings.keep_selected){
+                    $(this).addClass('tool_enabled');
+                }
                 if(settings.confirmable){
                     $("#dialog").dialog({
                                             buttons : {
@@ -712,6 +835,7 @@ function(Backbone, UserProfile){
 define('app/views/board',[
   'jquery',
   'backbone',
+  'app/history',
   'app/views/postit',
   'app/views/canvas',
   'app/views/text',
@@ -722,7 +846,7 @@ define('app/views/board',[
   'app/collections/texts'
 ], 
 
-function($, Backbone, PostitView, BoardCanvas, TextView, Board, Postit, Text, PostitList, TextList){
+function($, Backbone, History, PostitView, BoardCanvas, TextView, Board, Postit, Text, PostitList, TextList){
     var BoardView = Backbone.View.extend({
         el: $("#board"),
 
@@ -736,11 +860,16 @@ function($, Backbone, PostitView, BoardCanvas, TextView, Board, Postit, Text, Po
         },
 
         initialize: function(attrs){
+          this.history = new History(this);
           this.boardConnection = attrs.boardConnection;
           this.zoom = 1;
 
           this.tool = "postits";
-          this.canvas = new BoardCanvas({boardConnection: this.boardConnection, zoom: this.zoom});
+          this.canvas = new BoardCanvas({
+              boardConnection: this.boardConnection,
+              zoom: this.zoom,
+              history: this.history
+          });
           this.canvas.render();
 
           this.postits = new PostitList();
@@ -772,15 +901,16 @@ function($, Backbone, PostitView, BoardCanvas, TextView, Board, Postit, Text, Po
             }
             var _this = this;
             if (this.tool === "postits") {
-                var postit = new Postit({"x":Math.round(e.pageX/_this.zoom), "y":Math.round(e.pageY/_this.zoom), "width":120, "height":120, "text":""});
-                postit.setZoom(_this.zoom);
-                this.postits.add(postit);//TODO: check what is this doing
-                postit.save(null, {
-                    success: function(model, response){
-                        _this.boardConnection.newPostit(model.get("id"), postit.get("x"), postit.get("y"), postit.get("width"), postit.get("height"), postit.get("text"));
-                    }
+                var postit = new Postit({
+                  "x":Math.round(e.pageX/_this.zoom),
+                  "y":Math.round(e.pageY/_this.zoom),
+                  "width":120,
+                  "height":120,
+                  "text":""
                 });
-                postit.trigger('focus');
+                this.addPostit(postit, function(model){
+                    _this.history.add('added_postit', model);
+                });
             }
             if (this.tool === "text") {
               var text = new Text({
@@ -790,16 +920,7 @@ function($, Backbone, PostitView, BoardCanvas, TextView, Board, Postit, Text, Po
                 width: 150,
                 height: 50
               });
-              text.setZoom(_this.zoom);
-              this.texts.add(text);
-              var view = new TextView({model: text, boardConnection: this.boardConnection, zoom: _this.zoom});
-              $("#board").append(view.render().el);
-
-              text.save(null, {
-                success: function(model, response){
-                  _this.boardConnection.newText(model.get("id"), text.get("x"), text.get("y"), text.get("width"), text.get("height"), text.get("text"));
-                }
-              });
+              this.addText(text);
             }
             return false;
         },
@@ -822,6 +943,7 @@ function($, Backbone, PostitView, BoardCanvas, TextView, Board, Postit, Text, Po
             postit.setZoom(this.zoom);
             this.postits.add(postit);
         },
+
         showText: function(id){
           var _this = this;
           var text = new Text({id:id});
@@ -838,12 +960,46 @@ function($, Backbone, PostitView, BoardCanvas, TextView, Board, Postit, Text, Po
         addAllTexts: function() {
             this.texts.each(this.addOneText, this);
         },
+        addPostit: function(postit, callback) {
+          var _this = this;
+          postit.setZoom(this.zoom);
+          this.postits.add(postit);
+          postit.save(null, {
+              success: function(model, response){
+                  _this.boardConnection.newPostit(model.get("id"), postit.get("x"), postit.get("y"), postit.get("width"), postit.get("height"), postit.get("text"));
+                  if (callback) { callback(model);}
+              }
+          });
+          postit.trigger('focus');
+        },
         addOne: function(postit){
-            var view = new PostitView({model: postit, boardConnection: this.boardConnection, zoom: this.zoom});
+            var view = new PostitView({
+                model: postit,
+                boardConnection: this.boardConnection,
+                zoom: this.zoom,
+                history: this.history
+            });
             $("#board").append(view.render().el);
         },
+        addText: function(text) {
+          var _this = this;
+          text.setZoom(this.zoom);
+          this.texts.add(text);
+          var view = new TextView({model: text, boardConnection: this.boardConnection, zoom: _this.zoom, history: this.history});
+          $("#board").append(view.render().el);
+          text.save(null, {
+            success: function(model, response){
+              _this.boardConnection.newText(model.get("id"), text.get("x"), text.get("y"), text.get("width"), text.get("height"), text.get("text"));
+            }
+          });
+        },
         addOneText: function(text){
-          var view = new TextView({model: text, boardConnection: this.boardConnection, zoom: this.zoom});
+          var view = new TextView({
+            model: text,
+            boardConnection: this.boardConnection,
+            zoom: this.zoom,
+            history: this.history
+          });
           $("#board").append(view.render().el);
         },
         movePostit: function(id, newX, newY){
@@ -916,8 +1072,12 @@ function($, Backbone, PostitView, BoardCanvas, TextView, Board, Postit, Text, Po
             this.canvas.clearLines();
         },
 
-        deleteLine: function(id){
-            this.canvas.deleteLine(id);
+        deleteLine: function(line) {
+            this.canvas.deleteLine(line);
+        },
+
+        onDeletedLine: function(id){
+            this.canvas.onDeletedLine(id);
         },
 
         zoomIn: function(event){
@@ -951,6 +1111,10 @@ function($, Backbone, PostitView, BoardCanvas, TextView, Board, Postit, Text, Po
         toggleUsers: function(e){
             e.preventDefault();
             $("#online_users_container").toggle("slow");
+        },
+
+        undo: function() {
+            this.history.undo();
         }
     });
 
@@ -976,6 +1140,7 @@ function($, Backbone, _, paper, Line, LineList){
         initialize: function(attrs){
             this.boardConnection = attrs.boardConnection;
             this.zoom = attrs.zoom;
+            this.history = attrs.history;
             this.strokeColor = "black";
             var _this = this;
             var canvas = this.el;
@@ -984,12 +1149,7 @@ function($, Backbone, _, paper, Line, LineList){
             paper.view.draw();
             this.lines.fetch({success: function(lineList){
                 _.each(lineList.models, function(line){
-                    if(line.get("path")){
-                        line.path = _this.drawLinePath(line);
-                        line.path.model = line;
-                    }
-                    line.bind('change:zoom', _this.render, _this);
-                    paper.view.draw();
+                    _this.drawLine(line);
                 });
             }});
         },
@@ -999,33 +1159,40 @@ function($, Backbone, _, paper, Line, LineList){
         },
 
         startLine: function(x, y, type){
-          var line = new Line();
-          line.set("color_l",this.strokeColor);
-          line.type = type;
 
-          this.shadowPath = new paper.Path();
-          this.shadowPath.strokeColor = this.strokeColor;
-          this.shadowPath.dashArray = [10, 12];
+            var line = new Line();
+            line.set("color_l", this.strokeColor);
+            line.type = type;
 
-          var path = new paper.Path();
-          path.model = line;
+            var path = new paper.Path();
+            path.model = line;
+            path.strokeColor = line.get("color_l");
+            var start = new paper.Point(x, y);
+            path.add(start);
 
-          path.strokeColor = this.strokeColor;
-          var start = new paper.Point(x, y);
-          path.add(start);
-          this.shadowPath.add(start);
+            line.path = path;
 
-          var _this = this;
+            this.shadowPath = new paper.Path();
+            this.shadowPath.strokeColor = this.strokeColor;
+            this.shadowPath.dashArray = [10, 12];
+            this.shadowPath.add(start);
 
-          line.save({"stroke_w":1},{
-            success: function(model, response){
-              _this.line = model;
-              _this.line.path = path;
-              _this.lines.add(model);
-              _this.boardConnection.startPath(model.get("id"), x/_this.zoom, y/_this.zoom, model.get("color_l"));
-              paper.view.draw();
-            }
-          });
+            var _this = this;
+            this.saveLine(line, start, function(line){
+                _this.line = line;
+            });
+        },
+
+        saveLine: function(line, startPoint, callback){
+            var _this = this;
+            line.save({"stroke_w":1, path: this.serialize(line.path)},{
+                success: function(model, response){
+                    _this.lines.add(model);
+                    paper.view.draw();
+                    _this.boardConnection.startPath(model.get("id"), startPoint.x/_this.zoom, startPoint.y/_this.zoom, model.get("color_l"));
+                    if (callback) { callback(model); }
+                }
+            });
         },
 
         mouseMove: function(e){
@@ -1056,7 +1223,12 @@ function($, Backbone, _, paper, Line, LineList){
             }
             paper.view.draw();
             this.boardConnection.finishPath(this.line.get("id"));
-            this.line.save({path: this.serialize(this.line.path)});
+              var _this = this;
+            this.line.save({path: this.serialize(this.line.path)}, {
+                success: function(line){
+                    _this.history.add('added_line', line);
+                }
+            });
             this.lines.add(this.line);
             this.line = null;
           }
@@ -1074,6 +1246,14 @@ function($, Backbone, _, paper, Line, LineList){
                 pathToSerialize.push(segmentToSerialize);
             });
             return JSON.stringify(pathToSerialize);
+        },
+
+        drawLine: function(line){
+            if(line.get("path")){
+                line.path = this.drawLinePath(line);
+                line.path.model = line;
+            }
+            paper.view.draw();
         },
 
         // Convert a line model to paper.pathObject
@@ -1116,6 +1296,7 @@ function($, Backbone, _, paper, Line, LineList){
             this.lines.get(id).fetch({success: function(line){
                 line.path.remove();
                 line.path = _this.drawLinePath(line);
+                line.path.model = line;
                 paper.view.draw();
             }});
         },
@@ -1145,14 +1326,19 @@ function($, Backbone, _, paper, Line, LineList){
             };
             var hitResult = paper.project.hitTest(new paper.Point(x,y), hitOptions);
             if(hitResult){
-                hitResult.item.remove();
-                this.boardConnection.deleteLine(hitResult.item.model.get("id"));
-                hitResult.item.model.destroy();
-                paper.view.draw();
+                this.deleteLine(hitResult.item.model);
+                this.history.add('deleted_line', hitResult.item.model);
             }
         },
 
-        deleteLine: function(id){
+        deleteLine: function(model){
+            model.path.remove();
+            this.boardConnection.deleteLine(model.get("id"));
+            model.destroy();
+            paper.view.draw();
+        },
+
+        onDeletedLine: function(id){
             var line = this.lines.get(id);
             if( line){
                 if (line.path) {
@@ -1332,6 +1518,7 @@ function($, Backbone){
         initialize: function(attrs){
             this.boardConnection = attrs.boardConnection;
             this.zoom = attrs.zoom;
+            this.history = attrs.history;
             this.model.bind('change', this.render, this);
             this.model.bind('destroy', this.doRemove, this);
             this.model.bind('remove', this.doRemove, this);
@@ -1408,7 +1595,7 @@ function($, Backbone){
 
         deletePostit: function(){
             this.model.destroy();
-            this.boardConnection.deletePostit(this.model.get("id"));
+            this.history.add('removed_postit', this.model);
         },
 
         createPostitTextArea: function(){
@@ -1454,9 +1641,20 @@ function($, Backbone){
                     .css('background-color', color)
                     .css('float', position)
                     .click(function() {
-                        _this.model.save({"back_color": color});
-                        _this.boardConnection.changePostitColor(_this.model.get("id"), color, color);
+                        var prevColor = _this.model.get("back_color");
+                        _this.changePostitColor(color, function(postit){
+                            _this.history.add('changed_postit_color', {postit: _this.model, prevColor: prevColor});
+                        });
                     });
+        },
+
+        changePostitColor: function(newColor, callback) {
+            this.model.save({"back_color": newColor}, {
+                success: function(postit){
+                    if (callback) { callback(postit); }
+                }
+            });
+            this.boardConnection.changePostitColor(this.model.get("id"), newColor, newColor);
         },
 
         showToolbar: function(){
@@ -1477,6 +1675,7 @@ function($, Backbone){
             this.$el.fadeOut('fast', function(){
                 this.remove();
             });
+            this.boardConnection.deletePostit(this.model.get("id"));
         }
     });
     return PostitView;
@@ -1499,6 +1698,7 @@ define('app/views/text',[
     {
       this.boardConnection = options.boardConnection;
       this.zoom = options.zoom;
+      this.history = options.history;
       this.model.bind('change', this.render, this);
       this.model.bind('remove', this.remove, this);
       this.model.bind('change:zoom', this.render, this);
@@ -1583,6 +1783,7 @@ define('app/views/text',[
     },
     deleteText: function() {
       this.remove();
+      this.history.add('removed_text', this.model);
       this.model.destroy();
       this.boardConnection.deleteText(this.model.get("id"));
     }
