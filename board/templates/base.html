@@ -35,7 +35,6 @@
                         <input type="password" placeholder="{% trans "Password" %}" class="form-control" id="id_password" name="password">
                     </div>
                     <button type="submit" class="btn btn-success">{% trans "Sign in" %}</button>
-                    <a href="{% url 'userena.views.signup' %}" class="btn btn-primary">{% trans "Sign up" %}</a>
                 </form>
             </div><!--/.navbar-collapse -->
             {% else %}
@@ -48,6 +47,7 @@
             {% endif %}
         </div>
     </div>
+    <a id="sign_up" href="{% url 'userena.views.signup' %}" class="btn btn-lg btn-primary">{% trans "Sign up" %}</a>
 
 {% block content %}{% endblock %}
 

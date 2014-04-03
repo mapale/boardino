@@ -8,26 +8,32 @@
                 <img src="/static/images/logo_big.png"/>
             </div>
             <h2>{% trans "Real-time collaborative project management whiteboard" %}</h2>
+            <form action="/new" method="post">
+                {% csrf_token %}
+                <input id="new_board" type="submit" class="btn btn-lg btn-success" href="/new" rel="nofollow" value="{% trans "Start &raquo;" %}"/>
+                <div id="captcha">{{ board_form.captcha }}</div>
+            </form>
             <!--<p><a class="btn btn-primary btn-lg">Learn more &raquo;</a></p>-->
         </div>
     </div>
 
     <div class="container">
         <!-- Example row of columns -->
+        <h2>Features</h2>
         <div class="row">
             <div class="col-lg-4" style="text-align: center">
                 <div style="text-align: center">
                 <i class="fa fa-rocket fa-5x" ></i>
                 </div>
-                <h2>{% trans "Want to try it?" %}</h2>
+                <h3>{% trans "Want to try it?" %}</h3>
                 <p>{% trans "Just solve the math and click start to create your first Boardino." %}</p>
                 <p>{% trans "It is not required to sign-up." %}</p>
                 <p>
-                <form action="/new" method="post">
+                <!-- <form action="/new" method="post">
                     {% csrf_token %}
                     {{ board_form.captcha }}
                     <input type="submit" class="btn btn-success" href="/new" rel="nofollow" value="{% trans "Start &raquo;" %}"/>
-                </form>
+                </form> -->
 
                 </p>
             </div>
@@ -35,14 +41,14 @@
                 <div style="text-align: center">
                     <i class="fa fa-users fa-5x" ></i>
                 </div>
-                <h2>{% trans "Real-Time Collaboration" %}</h2>
+                <h3>{% trans "Real-Time Collaboration" %}</h3>
                 <p>{% trans "Share your board to collaboratively work with your team." %}</p>
             </div>
             <div class="col-lg-4" style="text-align: center">
                 <div style="text-align: center">
                 <i class="fa fa-edit fa-5x" ></i>
                 </div>
-                <h2>{% trans "Your Boardinos" %}</h2>
+                <h3>{% trans "Your Boardinos" %}</h3>
                 {% if user.is_authenticated %}
                     {% for board in user.get_profile.boardinos.all %}
                     <p> <a href="/{{ board.hash }}">&raquo; {{ board.hash }}</a></>
@@ -69,4 +75,15 @@
             <p>&copy; Mapalé Software 2014</p>
         </footer>
     </div> <!-- /container -->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#new_board').hover(function() {
+                $('#captcha').show('slow');
+            }, function() {
+                $('#captcha').hide('slow');
+            });
+        });
+    </script>
     {% endblock %}
