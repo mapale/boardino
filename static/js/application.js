@@ -888,10 +888,7 @@ function($, Backbone, History, PostitView, BoardCanvas, TextView, Board, Postit,
         events: {
             "mousedown #board-canvas": "mousedown",
             "mousemove": "mouseMove",
-            "mouseup": "mouseUp",
-            "click #zoom_in": "zoomIn",
-            "click #zoom_out": "zoomOut",
-            "click #connected_users_btn": "toggleUsers"
+            "mouseup": "mouseUp"
         },
 
         initialize: function(attrs){
@@ -1141,11 +1138,6 @@ function($, Backbone, History, PostitView, BoardCanvas, TextView, Board, Postit,
           $("#board").css('height', 1500*this.zoom).css('width', 3000*this.zoom);
           $("#board-canvas").css('height', 1500*this.zoom).css('width', 3000*this.zoom)
             .height(1500*this.zoom).width(3000*this.zoom);
-        },
-
-        toggleUsers: function(e){
-            e.preventDefault();
-            $("#online_users_container").toggle("slow");
         },
 
         undo: function() {
@@ -1435,7 +1427,10 @@ define('app/views/main',[
       "click #set-password": "showSetPasswordModal",
       "click #set-alias": "showSetAliasModal",
       "click #set-password-btn": "setBoardPassword",
-      "click #set-alias-btn": "setBoardAlias"
+      "click #set-alias-btn": "setBoardAlias",
+      "click #zoom_in": "zoomIn",
+      "click #zoom_out": "zoomOut",
+      "click #connected_users_btn": "toggleUsers"
     },
     initialize: function(attrs){
       this.boardView = attrs.boardView;
@@ -1524,7 +1519,20 @@ define('app/views/main',[
           }
         );
       }
-    }
+    },
+
+      zoomIn: function(event){
+          this.boardView.zoomIn(event);
+      },
+
+      zoomOut: function(event){
+          this.boardView.zoomOut(event);
+      },
+
+      toggleUsers: function(e){
+          e.preventDefault();
+          $("#online_users_container").toggle("slow");
+      }
   });
   return MainView;
 });
