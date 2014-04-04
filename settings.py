@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 
 import dj_database_url
 DATABASES = {
-    'default': dj_database_url.config(default='mysql://root@localhost/whiteboard')
+    'default': dj_database_url.config(default='mysql://root:password@localhost/whiteboard')
 }
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()

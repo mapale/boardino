@@ -96,20 +96,25 @@ define("app",[
   'bootstrap'
 ], 
 
-function($, MainView, BoardView, BoardCanvas, BoardConnection, BoardMessageHandler, Toolbar, Utils){
+function($, MainView, BoardView, BoardCanvas, BoardConnection, BoardMessageHandler, Toolbar, Utils, Board){
     var initialize = function(){
 
-        var boardConnection, boardView;// Added
+        var boardConnection, boardView, board;
 
         function initBoard(){
-          var boardId = Utils.getBoardId();
-          var boardMessageHandler = new BoardMessageHandler();
-          boardConnection = new BoardConnection(boardId, boardMessageHandler);
-          boardView = new BoardView({boardConnection: boardConnection});
-          boardMessageHandler.setBoardView(boardView);
+            var boardId = Utils.getBoardId();
+            var boardMessageHandler = new BoardMessageHandler();
+            boardConnection = new BoardConnection(boardId, boardMessageHandler);
+            boardView = new BoardView({boardConnection: boardConnection});
+            boardMessageHandler.setBoardView(boardView);
 
-          var mainView = new MainView({boardView: boardView, boardId: boardId});
-          mainView.render();
+            var _this = this;
+
+            board = new Board({id: boardId});
+            board.fetch({success: function(){
+                var mainView = new MainView({boardView: boardView, board: board});
+                mainView.render();
+            }});
         }
 
         $(document).ready(function() {
@@ -128,7 +133,8 @@ function($, MainView, BoardView, BoardCanvas, BoardConnection, BoardMessageHandl
           });
 
           $(window).bind("beforeunload", function() {
-            boardConnection.disconnect();
+              saveScreenshot();
+              boardConnection.disconnect();
           });
         });
 
@@ -209,6 +215,35 @@ function($, MainView, BoardView, BoardCanvas, BoardConnection, BoardMessageHandl
                 "exclusive": false,
                 "keep_selected": false
             }));
+
+            toolbar.addTool($("#save-tool").tool(toolbar, {
+                "action": function(e){
+                    saveScreenshot(function(board){
+                        document.location.href = document.location.href + ".png";
+                    });
+                },
+                "exclusive": false,
+                "keep_selected": false
+            }));
+        }
+
+        function saveScreenshot(callback){
+            html2canvas(document.getElementById("board"), {
+                background: '#fff',
+                onrendered: function(canvas) {
+                    var extra_canvas = document.createElement("canvas");
+                    extra_canvas.setAttribute('width', 300);
+                    extra_canvas.setAttribute('height', 150);
+                    var ctx = extra_canvas.getContext('2d');
+                    ctx.drawImage(canvas,0,0,canvas.width, canvas.height,0,0,300,150);
+                    var dataURL = extra_canvas.toDataURL();
+                    board.save({screenshot: dataURL}, {
+                        success: function(board){
+                            if (callback) { callback(board);}
+                        }
+                    });
+                }
+            });
         }
   };
 
@@ -826,7 +861,7 @@ function(Backbone, UserProfile){
 
     return {
 
-        getBoardId: getBoardId,
+        getBoardId: getBoardId
         
     };
     
@@ -1404,18 +1439,14 @@ define('app/views/main',[
     },
     initialize: function(attrs){
       this.boardView = attrs.boardView;
-      var boardId = attrs.boardId;
-      this.board = new Board({id: boardId});
+      this.board = attrs.board;
       this.menu = $("#menu");
       this.menu.menu();
       $("#set-password-modal").modal({show:false});
       $("#set-alias-modal").modal({show:false});
     },
     render: function() {
-      var _this = this;
-      this.board.fetch({success: function(){
-        _this.boardView.render();
-      }});
+      this.boardView.render();
     },
     showMenu: function() {
         clearTimeout(this.menu.data('timeoutId'));

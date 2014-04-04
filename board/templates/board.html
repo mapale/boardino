@@ -30,6 +30,7 @@
 
     var lastTap = null;
     </script>-->
+    <script src="/static/assets/vendor/html2canvas.js"></script>
     <script data-main="/static/js/application" src="/static/assets/vendor/require.js"></script>
     <script type="application/javascript">
         window['ws_host'] = 'boardino-sync.herokuapp.com:80';
@@ -60,6 +61,7 @@
         <i id="eraser_tool" class="fa fa-eraser fa-2x"></i>
         <i id="clear_lines_tool" class="fa fa-trash-o fa-2x"></i>
         <i id="undo-tool" class="fa fa-undo fa-2x"></i>
+        <i id="save-tool" class="fa fa-download fa-2x"></i>
     </div>
     <div id="dialog" title="Cleaning drawings..." style="display: none;">
         Are you sure about this?
@@ -140,12 +142,10 @@
         <div id="online_users_container" class="panel panel-default">
             <div class="panel-heading">Now online:</div>
             <div id="notifications"></div>
-            <div id="online_users" class="panel-body">
+            <div id="online_users" class="panel-body"></div>
         </div>
     </div>
     <div id="boardino_logo"><a href="http://www.boardino.com"><img src="/static/images/logo_small.png"/></a></div>
-
-    </div>
     <!-- uservoice feedback widget-->
     <!--<script type="text/javascript">
       var uvOptions = {};

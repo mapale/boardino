@@ -36,7 +36,7 @@ class LineSerializer(serializers.ModelSerializer):
 class BoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Board
-        fields = ['hash','password']
+        fields = ['hash','password', 'screenshot']
 
     def to_native(self, obj):
         ret = super(BoardSerializer, self).to_native(obj)

@@ -39,6 +39,7 @@ urlpatterns = patterns('board.views',
     url(r'^(?P<board_hash>\w+)/clone/$', 'clone', name="clone-board"),
     url(r'^(?P<board_hash>\w+)/authorize', 'authorize_board', name="board-authorization"),
     url(r'^(?P<board_hash>\w+)/lines/clear', 'clear_lines'),
+    url(r'^(?P<board_hash>\w+).png$', 'download', name="save-board"),
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'api'])

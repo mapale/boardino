@@ -1,4 +1,5 @@
 import json
+import re
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render_to_response, get_object_or_404
@@ -158,6 +159,13 @@ def clone(request, board_hash):
     return HttpResponseRedirect("/"+new_board.hash)
 
 
+def download(request, board_hash):
+    board = get_object_or_404(Board, hash=board_hash)
+    base64image = re.search(r'base64,(.*)', board.screenshot).group(1)
+    response = HttpResponse(base64image.decode('base64'), mimetype='image/png')
+    response['Content-Disposition'] = 'attachment; filename=boardino_%s.png' % board_hash
+    return response
+
 # API
 @api_view(['GET'])
 def api_root(request, format=None):
@@ -247,4 +255,3 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
             return None
         profile = get_object_or_404(UserProfile, user=self.request.user)
         return profile
-    

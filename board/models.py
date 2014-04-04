@@ -7,6 +7,7 @@ class Board(models.Model):
     password = models.CharField(default="", blank=True, max_length=20)
     hash = models.CharField(max_length=30, null=True, unique=True,
                             error_messages={'unique':'A Board with this alias already exists'})
+    screenshot = models.TextField(blank=True, null= True)
 
     # Hash generation
 
