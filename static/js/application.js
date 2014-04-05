@@ -1114,23 +1114,22 @@ function($, Backbone, History, PostitView, BoardCanvas, TextView, Board, Postit,
 
         zoomIn: function(event){
             event.preventDefault();
-            if(this.zoom < 2) { this.zoom += 0.1; }
-            var _this = this;
-            this.postits.each(function(postit){ postit.setZoom(_this.zoom); });
-            this.texts.each(function(text){ text.setZoom(_this.zoom); });
-            this.canvas.setZoom(this.zoom);
-            $("#zoom_value").text(Math.round(this.zoom*100)+"%");
-            this.render();
+            if(this.zoom < 2) { this.setZoom(this.zoom + 0.1); }
+            return this.zoom;
         },
 
         zoomOut: function(event){
             event.preventDefault();
-            if(this.zoom > 0.25) { this.zoom -= 0.1; }
-            var _this = this;
-            this.postits.each(function(postit){ postit.setZoom(_this.zoom); });
-            this.texts.each(function(text){ text.setZoom(_this.zoom); });
+            if(this.zoom > 0.25) { this.setZoom(this.zoom - 0.1); }
+            return this.zoom;
+        },
+
+        setZoom: function(zoom){
+            this.zoom = zoom;
+            this.postits.each(function(postit){ postit.setZoom(zoom); });
+            this.texts.each(function(text){ text.setZoom(zoom); });
             this.canvas.setZoom(this.zoom);
-            $("#zoom_value").text(Math.round(this.zoom*100)+"%");
+            $("#zoom_value").text(Math.round(zoom*100)+"%");
             this.render();
         },
 
@@ -1437,8 +1436,20 @@ define('app/views/main',[
       this.board = attrs.board;
       this.menu = $("#menu");
       this.menu.menu();
+      var _this = this;
       $("#set-password-modal").modal({show:false});
       $("#set-alias-modal").modal({show:false});
+        $( "#zoom-slider" ).slider({
+            orientation: "vertical",
+            min: 0.2,
+            max: 2,
+            value: 1,
+            step: 0.1,
+            slide: function( event, ui ) {
+                _this.boardView.setZoom(ui.value);
+                //$( "#amount" ).val( ui.value );
+            }
+        });
     },
     render: function() {
       this.boardView.render();
@@ -1522,11 +1533,13 @@ define('app/views/main',[
     },
 
       zoomIn: function(event){
-          this.boardView.zoomIn(event);
+          var zoom = this.boardView.zoomIn(event);
+          $( "#zoom-slider" ).slider("value", zoom);
       },
 
       zoomOut: function(event){
-          this.boardView.zoomOut(event);
+          var zoom = this.boardView.zoomOut(event);
+          $( "#zoom-slider" ).slider("value", zoom);
       },
 
       toggleUsers: function(e){
