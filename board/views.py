@@ -1,5 +1,6 @@
 import json
 import re
+from datetime import datetime
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render_to_response, get_object_or_404
@@ -122,6 +123,8 @@ def board(request, board_hash):
         request.session['visited'] = visited_boards
     else:
         request.session['visited'] = [board_hash]
+    board.last_visit = datetime.now()
+    board.save()
     return render_to_response('board.html',{'board_hash': board.hash, 'postits':board.postit_set.all()}, context_instance=RequestContext(request))
 
 # Clear all drawed lines of the board
