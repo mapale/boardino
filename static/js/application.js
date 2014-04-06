@@ -1423,9 +1423,11 @@ define('app/views/main',[
       "mouseleave #menu_tool": "leaveMenuTool",
       "mouseleave #menu": "leaveMenu",
       "mouseenter #menu": "enteredMenu",
-      "click #set-password": "showSetPasswordModal",
+      "click #set-private": "showSetPrivateModal",
+      "click #set-public": "showSetPublicModal",
       "click #set-alias": "showSetAliasModal",
-      "click #set-password-btn": "setBoardPassword",
+      "click #set-private-btn": "setPrivate",
+      "click #set-public-btn": "setPublic",
       "click #set-alias-btn": "setBoardAlias",
       "click #zoom_in": "zoomIn",
       "click #zoom_out": "zoomOut",
@@ -1437,7 +1439,7 @@ define('app/views/main',[
       this.menu = $("#menu");
       this.menu.menu();
       var _this = this;
-      $("#set-password-modal").modal({show:false});
+      $("#set-private-modal").modal({show:false});
       $("#set-alias-modal").modal({show:false});
         $( "#zoom-slider" ).slider({
             orientation: "vertical",
@@ -1471,34 +1473,51 @@ define('app/views/main',[
         }, 200);
         this.menu.data('timeoutId', timeoutId);
     },
-    showSetPasswordModal: function(e) {
-      e.preventDefault();
-      $("#set-password-modal").modal('show');
+    showSetPrivateModal: function(e) {
+        e.preventDefault();
+        $("#set-private-modal").modal('show');
+    },
+    showSetPublicModal: function(e) {
+        e.preventDefault();
+        $("#set-public-modal").modal('show');
     },
     showSetAliasModal: function(e) {
       e.preventDefault();
       $("board-alias").val(this.board.get("hash"));
       $("#set-alias-modal").modal('show');
     },
-    setBoardPassword: function(e) {
-      e.preventDefault();
-      $("#set-password-btn").attr('disabled','disabled');
-      var passwordInput = $("#board-password");
-      var passwordConfirmInput = $("#board-password2");
-      var password = passwordInput.val();
-      var passwordConfirmation = passwordConfirmInput.val();
-      if (password === passwordConfirmation) {
-        this.board.set("password", password);
-        this.board.save({}, {success: function(){
-          $("#set-password-modal").modal('hide');
-          $("#set-password-btn").removeAttr("disabled");
-          passwordInput.val("");
-          $("set-password-error").hide();
-        }});
-      } else {
-        $("#set-password-error").fadeIn();
-        $(this).removeAttr("disabled");
-      }
+    setPrivate: function(e){
+        e.preventDefault();
+        $("#set-private-btn").attr('disabled','disabled');
+        this.board.save({'is_private': true}, {
+            success: function(board){
+                console.log(board);
+                $("#set-private-error-msg").hide();
+                $("#set-private-modal").modal('hide');
+                $("#set-private-btn").removeAttr("disabled");
+                $("#set-private").hide();
+                $("#set-public").show();
+            },
+            error: function(model, response){
+                $("#set-private-error-msg").show();
+            }
+        });
+    },
+    setPublic: function(e){
+        e.preventDefault();
+        $("#set-public-btn").attr('disabled','disabled');
+        this.board.save({'is_private': false}, {
+            success: function(board){
+                $("#set-public-error-msg").hide();
+                $("#set-public-modal").modal('hide');
+                $("#set-public-btn").removeAttr("disabled");
+                $("#set-private").show();
+                $("#set-public").hide();
+            },
+            error: function(model, response){
+                $("#set-public-error-msg").show();
+            }
+        });
     },
     setBoardAlias: function(e) {
       e.preventDefault();

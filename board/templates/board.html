@@ -6,6 +6,7 @@
     <title>{% trans "Boardino - Project Management Whiteboard" %}</title>
     <link href="/static/css/bootstrap.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link href='http://fonts.googleapis.com/css?family=Walter+Turncoat' rel='stylesheet' type='text/css'>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href="/static/css/board.css" rel="stylesheet" type="text/css"/>
@@ -38,14 +39,11 @@
     <meta name = "viewport" content = "initial-scale = 1.0">
 </head>
 <body>
-<!--<div id="left"></div>
-<div id="right"></div>
-<div id="top"></div>
-<div id="bottom"></div>-->
     <ul id="menu">
-        <li><a href="#" id="set-password"><span class="ui-icon ui-icon-locked"></span>{% trans "Protect this board" %}</a></li>
-        <li><a href="#" id="set-alias"><span class="ui-icon ui-icon-tag"></span>{% trans "Set a name"%}</a></li>
-        <li><a href="{% url 'board.views.clone' board_hash %}" target="_blank" id="clone-board"><span class="ui-icon ui-icon-squaresmall-plus"></span>{% trans "Clone this board"%}</a></li>
+        <li id="set-public" {% if board.is_private %}style="display: none"{% endif %}><a href="#"><span class="ui-icon ui-icon-locked"></span>{% trans "Set public" %}</a></li>
+        <li id="set-private"{% if not board.is_private %}style="display: none"{% endif %}><a href="#"><span class="ui-icon ui-icon-locked"></span>{% trans "Set private" %}</a></li>
+        <li><a href="#" id="set-alias"><span class="ui-icon ui-icon-tag"></span>{% trans "Set name"%}</a></li>
+        <li><a href="{% url 'board.views.clone' board.hash %}" target="_blank" id="clone-board"><span class="ui-icon ui-icon-squaresmall-plus"></span>{% trans "Clone this board"%}</a></li>
     </ul>
     <div id="toolbar">
         <i id="menu_tool" class="fa fa-list-ul fa-2x"></i>
@@ -66,35 +64,64 @@
     <div id="dialog" title="Cleaning drawings..." style="display: none;">
         Are you sure about this?
     </div>
-    <div class="modal fade" id="set-password-modal">
+    <div class="modal fade" id="set-private-modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">{% trans "Protect with a password"%}</h4>
+                    <h4 class="modal-title">{% trans "Set this boardino as private ..." %}</h4>
                 </div>
                 <div class="modal-body">
-                    <div id="set-password-error" class="alert alert-danger" style="display: none">
-                        <span id="set-password-error-msg">{% trans "There is a password mismatch" %}</span>
+                    <div id="set-private-error" class="alert alert-danger" style="display: none">
+                        <span id="set-private-error-msg">{% trans "Couldn't set the board as private" %}</span>
                     </div>
-                    <div class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label for="board-password" class="col-lg-2 control-label">{% trans "Password"%}</label>
-                            <div class="col-lg-10">
-                                <input type="password" class="form-control" id="board-password" placeholder="{% trans "Password" %}">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="board-password2" class="col-lg-2 control-label">{% trans "Confirm password"%}</label>
-                            <div class="col-lg-10">
-                                <input type="password" class="form-control" id="board-password2" placeholder="{% trans "Confirm password"%}">
-                            </div>
-                        </div>
-                    </div>
+                    {% if user.is_authenticated and user.get_profile.is_premium %}
+                        {% if user == board.owner %}
+                            <p>{% trans "Are you sure to set this boardino as private?" %}</p>
+                        {% else %}
+                            <p>{% trans "You are not allowed to set this boardino as private, because you are not the owner" %}</p>
+                        {% endif %}
+                    {% else %}
+                        <p>{% trans "You are not allowed to set this boardino as private." %}</p>
+                        <p>{% trans "Please register if you haven't and upgrade your plan." %}</p>
+                        {% if user != board.owner %}
+                            <p>{% trans "Also, you need to be the owner of the board." %}</p>
+                        {% endif %}
+                    {% endif %}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
-                    <button type="button" class="btn btn-primary" id="set-password-btn" data-loading-text="{% trans "saving..." %}" >{% trans "Save" %}</button>
+                    {% if user.is_authenticated and user.get_profile.is_premium %}
+                        <button type="button" class="btn btn-primary" id="set-private-btn" data-loading-text="{% trans "saving..." %}" >{% trans "Set private" %}</button>
+                    {% else %}
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">{% trans "Accept" %}</button>
+                    {% endif %}
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="set-public-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{% trans "Publish this boardino ..." %}</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="set-public-error" class="alert alert-danger" style="display: none">
+                        <span id="set-public-error-msg">{% trans "Couldn't set the board as public" %}</span>
+                    </div>
+                    {% if user == board.owner %}
+                        <p>{% trans "Are you sure to set this boardino as public?" %}</p>
+                    {% else %}
+                        <p>{% trans "You are not allowed to publish this boardino, because you are not the owner" %}</p>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    {% if user.is_authenticated and user.get_profile.is_premium %}
+                        <button type="button" class="btn btn-primary" id="set-public-btn" data-loading-text="{% trans "saving..." %}" >{% trans "Publish" %}</button>
+                    {% else %}
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">{% trans "Accept" %}</button>
+                    {% endif %}
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

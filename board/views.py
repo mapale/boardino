@@ -2,6 +2,7 @@ import json
 import re
 from datetime import datetime
 from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
@@ -69,7 +70,10 @@ def create_board(request):
 
             if request.user.is_authenticated():
                 new_board.owner = request.user
-                if request.user.get_profile().is_premium:
+                profile = request.user.get_profile()
+                if profile.is_premium:
+                    profile.boardinos.add(new_board)
+                    profile.save()
                     new_board.is_private = True
 
             new_board.save()
@@ -118,20 +122,31 @@ def board(request, board_hash):
     if board.password:
         if 'board_'+str(board.id) not in request.session:
             return HttpResponseRedirect("/"+board_hash+"/authorize")
+
     # Chech if the user is authenticared
     if request.user.is_authenticated():
         profile = request.user.get_profile()
-        profile.boardinos.add(board)
-        profile.save()
+        if not board in profile.boardinos.all():
+            if board.is_private:
+                raise PermissionDenied
+            else:
+                profile.boardinos.add(board)
+                profile.save()
+    else:
+        if board.is_private:
+            raise PermissionDenied
+
     if 'visited' in request.session and board_hash not in request.session['visited']:
         visited_boards = request.session['visited']
         visited_boards.insert(0, board_hash)
         request.session['visited'] = visited_boards
     else:
         request.session['visited'] = [board_hash]
+
     board.last_visit = datetime.now()
     board.save()
-    return render_to_response('board.html',{'board_hash': board.hash, 'postits':board.postit_set.all()}, context_instance=RequestContext(request))
+
+    return render_to_response('board.html',{'board': board, 'postits':board.postit_set.all()}, context_instance=RequestContext(request))
 
 # Clear all drawed lines of the board
 @csrf_exempt
