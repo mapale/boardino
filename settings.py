@@ -1,7 +1,7 @@
 # Django settings for whiteboard project.
 import os
 
-DEBUG = True
+DEBUG = os.getenv('DEBUG', False)
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
