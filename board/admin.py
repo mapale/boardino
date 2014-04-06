@@ -6,7 +6,7 @@ class PostitAdmin(admin.ModelAdmin):
     list_display = ('id', 'text')
 
 class BoardAdmin(admin.ModelAdmin):
-    list_display = ('hash', 'created')
+    list_display = ('hash', 'created', 'owner')
 
 # Register and associate Board and PosIt Classes to the Admin Panel
 admin.site.register(Board, BoardAdmin)

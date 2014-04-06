@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 import hashlib, time
 
@@ -10,6 +11,7 @@ class Board(models.Model):
     screenshot = models.TextField(blank=True, null= True)
     created = models.DateTimeField(auto_now_add=True, null=True)
     last_visit = models.DateTimeField(blank=True, null=True)
+    owner = models.ForeignKey(User, blank=True, null=True)
 
     # Hash generation
 

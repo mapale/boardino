@@ -66,6 +66,10 @@ def create_board(request):
         if form.is_valid():
 
             new_board = Board()
+
+            if request.user.is_authenticated():
+                new_board.owner = request.user
+
             new_board.save()
 
             welcomePostit = PostIt(text=_("Welcome! Move me! Edit me! Delete me!"),x=120,y=50, board=new_board, width=100,
