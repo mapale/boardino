@@ -5,6 +5,9 @@ from board.models import Board, PostIt
 class PostitAdmin(admin.ModelAdmin):
     list_display = ('id', 'text')
 
+class BoardAdmin(admin.ModelAdmin):
+    list_display = ('hash', 'created')
+
 # Register and associate Board and PosIt Classes to the Admin Panel
-admin.site.register(Board)
+admin.site.register(Board, BoardAdmin)
 admin.site.register(PostIt, PostitAdmin)
