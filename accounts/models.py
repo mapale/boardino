@@ -7,4 +7,5 @@ from board.models import Board
 class UserProfile(UserenaBaseProfile):
     user = models.OneToOneField(User, unique=True)
     boardinos = models.ManyToManyField(Board)
+    is_premium = models.BooleanField(default=False)
 
