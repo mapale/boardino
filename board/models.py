@@ -8,6 +8,8 @@ class Board(models.Model):
     hash = models.CharField(max_length=30, null=True, unique=True,
                             error_messages={'unique':'A Board with this alias already exists'})
     screenshot = models.TextField(blank=True, null= True)
+    created = models.DateField(auto_now_add=True, null=True)
+    last_visit = models.DateField(blank=True, null=True)
 
     # Hash generation
 
