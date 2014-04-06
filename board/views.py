@@ -69,6 +69,8 @@ def create_board(request):
 
             if request.user.is_authenticated():
                 new_board.owner = request.user
+                if request.user.get_profile().is_premium:
+                    new_board.is_private = True
 
             new_board.save()
 
@@ -177,7 +179,7 @@ def download(request, board_hash):
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
-        'postits':reverse('postit-list', request=request)
+        #'postits':reverse('postit-list', request=request)
     })
 
 # Return a json file with a PostIt list with their respectly attributes each one (authorized attributes in PostistSerializer)
