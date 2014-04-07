@@ -1,7 +1,18 @@
 # Django settings for whiteboard project.
 import os
 
-DEBUG = bool(os.getenv('DEBUG', True))
+def env(key, default = None):
+    """Retrieves env vars and makes Python boolean replacements"""
+    val = os.getenv(key, default)
+
+    if val == 'True':
+        val = True
+    elif val == 'False':
+        val = False
+    return val
+
+
+DEBUG = env('DEBUG', True)
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
