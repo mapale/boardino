@@ -25,6 +25,10 @@
             </div>
             {% if not user.is_authenticated %}
             <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
 
                 <form class="navbar-form navbar-right" action="{%  url 'userena.views.signin' %}" method="post">
                     {% csrf_token %}
@@ -47,7 +51,7 @@
             {% endif %}
         </div>
     </div>
-    <a id="sign_up" href="{% url 'userena.views.signup' %}" class="btn btn-lg btn-primary">{% trans "Sign up" %}</a>
+    <a id="sign_up" href="{% url 'userena.views.signup' %}" class="btn btn-primary btn-lg">{% trans "Sign up" %}</a>
 
 {% block content %}{% endblock %}
 

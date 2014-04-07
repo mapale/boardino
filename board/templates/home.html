@@ -3,21 +3,21 @@
     {% block content %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron" style="text-align: center">
-        <div class="container">
+        <div id="home" class="container">
             <div id="logo">
                 <img src="/static/images/logo_big.png"/>
             </div>
             <h2>{% trans "Real-time collaborative project management whiteboard" %}</h2>
             <form action="/new" method="post">
                 {% csrf_token %}
-                <input id="new_board" type="submit" class="btn btn-lg btn-success" href="/new" rel="nofollow" value="{% trans "Start &raquo;" %}"/>
+                <input type="submit" id="new_board" class="btn btn-lg btn-success" href="/new" rel="nofollow" value="{% trans "Start &raquo;" %}"/>
                 <div id="captcha">{{ board_form.captcha }}</div>
             </form>
             <!--<p><a class="btn btn-primary btn-lg">Learn more &raquo;</a></p>-->
         </div>
     </div>
 
-    <div class="container">
+    <div id="features" class="container">
         <!-- Example row of columns -->
         <h2>Features</h2>
         <div class="row">
@@ -65,25 +65,45 @@
             </div>
         </div>
 
+        <form action="/new" method="post" style="text-align: center">
+            {% csrf_token %}
+            <input type="submit" id="new_board2" class="btn btn-lg btn-success" href="/new" rel="nofollow" value="{% trans "Start &raquo;" %}"/>
+            <div id="captcha2">{{ board_form.captcha }}</div>
+        </form>
+
+        <div id="about" class="container">
+            <h2>About</h2>
+            <div class="row">
+                <div class="col-lg-6" style="text-align: center">
+                    <img src="/static/images/mapale_logo.png"/>
+                    <p>
+                        Somos un equipo de programadores/diseñadores/geeks y freaks en general que encuentran su oficio muy entretenido y apasionante. Como equipo trabajamos en proyectos de desarrollo de software para diferentes áreas, haciendo énfasis en las aplicaciones móviles y web pero con experiencia en proyectos de telefonía, kioscos digitales, aplicaciones corporativas, sistemas de seguridad, IA, criptografía y hasta instalaciones artísticas.
+                    </p>
+                </div>
+                <div class="col-lg-6" style="text-align: center">
+                    <h3>Mapalé Software</h3>
+                    <address>
+                        Visit us at:<br>
+                        <a href="http://mapalesoftware.com">mapalesoftware.com</a><br>
+                        E-mail: <a mailto="info@mapalesoftware.com">info@mapalesoftware.com</a><br>
+                        Blog: <a href="http://blog.mapalesoftware.com">blog.mapalesoftware.com</a><br>
+                        Twitter: <a href="https://twitter.com/mapalesoftware">@mapalesoftware</a><br>
+                        Manizales, Colombia<br>
+                    </address>
+                </div>
+            </div>
+        </div>
+
         <hr>
         <!--<a href="https://github.com/mapale/boardino">
             <img style="position: absolute; top: 0; left: 0; border: 0; width: 149px; height: 149px; z-index: 2000"
                  src="http://aral.github.com/fork-me-on-github-retina-ribbons/left-orange@2x.png"
                  alt="Fork me on GitHub">
         </a>-->
-        <footer>
+        <footer style="text-align: center">
             <p>&copy; Mapalé Software 2014</p>
         </footer>
     </div> <!-- /container -->
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#new_board').hover(function() {
-                $('#captcha').show('slow');
-            }, function() {
-                $('#captcha').hide('slow');
-            });
-        });
-    </script>
     {% endblock %}
