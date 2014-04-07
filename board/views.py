@@ -67,6 +67,7 @@ def create_board(request):
         if form.is_valid():
 
             new_board = Board()
+            new_board.save()
 
             if request.user.is_authenticated():
                 new_board.owner = request.user

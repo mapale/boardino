@@ -40,8 +40,8 @@
 </head>
 <body>
     <ul id="menu">
-        <li id="set-public" {% if board.is_private %}style="display: none"{% endif %}><a href="#"><span class="ui-icon ui-icon-locked"></span>{% trans "Set public" %}</a></li>
-        <li id="set-private"{% if not board.is_private %}style="display: none"{% endif %}><a href="#"><span class="ui-icon ui-icon-locked"></span>{% trans "Set private" %}</a></li>
+        <li id="set-public" {% if not board.is_private %}style="display: none"{% endif %}><a href="#"><span class="ui-icon ui-icon-locked"></span>{% trans "Set public" %}</a></li>
+        <li id="set-private"{% if board.is_private %}style="display: none"{% endif %}><a href="#"><span class="ui-icon ui-icon-locked"></span>{% trans "Set private" %}</a></li>
         <li><a href="#" id="set-alias"><span class="ui-icon ui-icon-tag"></span>{% trans "Set name"%}</a></li>
         <li><a href="{% url 'board.views.clone' board.hash %}" target="_blank" id="clone-board"><span class="ui-icon ui-icon-squaresmall-plus"></span>{% trans "Clone this board"%}</a></li>
     </ul>
