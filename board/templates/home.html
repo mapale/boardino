@@ -3,9 +3,6 @@
     {% block content %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron" style="text-align: center">
-        <div id="home">
-            <a id="sign_up" href="{% url 'userena.views.signup' %}" class="btn btn-primary btn-lg">{% trans "Sign up" %}</a>
-        </div>
         <div class="container">
             <div id="logo">
                 <img src="/static/images/logo_big.png"/>
@@ -16,6 +13,7 @@
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <p>¡Introduce el Captcha para generar un Tablero!</p>
                         <form action="/new" method="post">
                             {% csrf_token %}
                             <div>{{ board_form.captcha }}</div>
@@ -32,9 +30,9 @@
     <div id="features" class="container">
         <!-- Example row of columns -->
         <h2>Features</h2>
-        <div class="row">
-            <div class="col-lg-4" style="text-align: center">
-                <div style="text-align: center">
+        <div class="row" style="text-align: center">
+            <div class="col-lg-4">
+                <div>
                 <i class="fa fa-rocket fa-5x" ></i>
                 </div>
                 <h3>{% trans "Want to try it?" %}</h3>
@@ -49,15 +47,15 @@
 
                 </p>
             </div>
-            <div class="col-lg-4" style="text-align: center">
-                <div style="text-align: center">
+            <div class="col-lg-4">
+                <div>
                     <i class="fa fa-users fa-5x" ></i>
                 </div>
                 <h3>{% trans "Real-Time Collaboration" %}</h3>
                 <p>{% trans "Share your board to collaboratively work with your team." %}</p>
             </div>
-            <div class="col-lg-4" style="text-align: center">
-                <div style="text-align: center">
+            <div class="col-lg-4">
+                <div>
                 <i class="fa fa-edit fa-5x" ></i>
                 </div>
                 <h3>{% trans "Your Boardinos" %}</h3>

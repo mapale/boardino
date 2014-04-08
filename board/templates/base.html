@@ -11,6 +11,7 @@
     <title>{% trans "Boardino - Project Management Whiteboard" %}</title>
 </head>
 <body>
+    <div id="home"></div>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -38,6 +39,7 @@
                         <input type="password" placeholder="{% trans "Password" %}" class="form-control" id="id_password" name="password">
                     </div>
                     <button type="submit" class="btn btn-success">{% trans "Sign in" %}</button>
+                    <a href="{% url 'userena.views.signup' %}" class="btn btn-primary">{% trans "Sign up" %}</a>
                 </form>
             </div><!--/.navbar-collapse -->
             {% else %}
