@@ -68,19 +68,6 @@
                 $(this).val("");
             });
 
-            /*$("#subscribe-submit").click(function(evt){
-                evt.preventDefault();
-                var email = $("#email-input").val();
-                $.post("/subscribe",{"email":email}, function(data){
-                    if(data.result=="Subscribed!")
-                        $("#message").css("color","green");
-                    else
-                        $("#message").css("color","red");
-                    $("#message").text(data.result);
-                    $("#email-input").val("");
-                });
-            })*/
-
             $(function() {
               $('a[href*=#]:not([href=#])').click(function() {
                 if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
@@ -94,6 +81,19 @@
                   }
                 }
               });
+            });
+
+            function centerModal() {
+                $(this).css('display', 'block');
+                var $dialog = $(this).find(".modal-dialog");
+                var offset = ($(window).height() - $dialog.height()) / 2;
+                // Center modal vertically in window
+                $dialog.css("margin-top", offset);
+            }
+
+            $('.modal').on('show.bs.modal', centerModal);
+            $(window).on("resize", function () {
+                $('.modal:visible').each(centerModal);
             });
         });
     </script>
