@@ -1,0 +1,102 @@
+{% load i18n %}
+<div class="jumbotron" style="text-align: center">
+    <div class="container">
+        <div id="logo">
+            <img src="/static/images/logo_big.png"/>
+        </div>
+        <h2>{% trans "Real-time collaborative project management whiteboard" %}</h2>
+        <button class="btn btn-lg btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">{% trans "Start &raquo;" %}</button>
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <p>¡{% "Introduce el Captcha para generar un Tablero" %}!</p>
+                    <form action="/new" method="post">
+                        {% csrf_token %}
+                        <div>{{ board_form.captcha }}</div>
+                        <br>
+                        <input type="submit" id="new_board" class="btn btn-lg btn-success" href="/new" rel="nofollow" value="{% trans "Start &raquo;" %}"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--<p><a class="btn btn-primary btn-lg">Learn more &raquo;</a></p>-->
+    </div>
+</div>
+
+<div id="features" class="container">
+    <!-- Example row of columns -->
+    <h2>{% trans "Features" %}</h2>
+    <div class="row" style="text-align: center">
+        <div class="col-lg-4">
+            <div>
+            <i class="fa fa-rocket fa-5x" ></i>
+            </div>
+            <h3>{% trans "Want to try it?" %}</h3>
+            <p>{% trans "Just solve the math and click start to create your first Boardino." %}</p>
+            <p>{% trans "It is not required to sign-up." %}</p>
+            <p>
+            <!-- <form action="/new" method="post">
+                {% csrf_token %}
+                {{ board_form.captcha }}
+                <input type="submit" class="btn btn-success" href="/new" rel="nofollow" value="{% trans "Start &raquo;" %}"/>
+            </form> -->
+
+            </p>
+        </div>
+        <div class="col-lg-4">
+            <div>
+                <i class="fa fa-users fa-5x" ></i>
+            </div>
+            <h3>{% trans "Real-Time Collaboration" %}</h3>
+            <p>{% trans "Share your board to collaboratively work with your team." %}</p>
+        </div>
+        <div class="col-lg-4">
+            <div>
+            <i class="fa fa-edit fa-5x" ></i>
+            </div>
+            <h3>{% trans "Your Boardinos" %}</h3>
+            {% if user.is_authenticated %}
+                {% for board in user.get_profile.boardinos.all %}
+                <p> <a href="/{{ board.hash }}">&raquo; {{ board.hash }}</a></p>
+                {% endfor %}
+            {% else %}
+                {% if visited_boards %}
+                    {% for board_hash in visited_boards %}
+                        <p><a href="/{{ board_hash }}" >&raquo; {{ board_hash }}</a></p>
+                    {% endfor %}
+                {% else %}
+                    <p>{% trans "You haven't visited any Boardino yet." %}</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <!-- <form action="/new" method="post" style="text-align: center">
+        {% csrf_token %}
+        <input type="submit" id="new_board2" class="btn btn-lg btn-success" href="/new" rel="nofollow" value="{% trans "Start &raquo;" %}"/>
+        <div id="captcha2">{{ board_form.captcha }}</div>
+    </form> -->
+</div>
+
+<div id="about" class="container">
+    <h2>{% "About" %}</h2>
+    <div class="row">
+        <div class="col-lg-6" style="text-align: center">
+            <img src="/static/images/mapale_logo.png"/>
+            <p>
+                {% trans "Somos un equipo de programadores/diseñadores/geeks y freaks en general que encuentran su oficio muy entretenido y apasionante. Como equipo trabajamos en proyectos de desarrollo de software para diferentes áreas, haciendo énfasis en las aplicaciones móviles y web pero con experiencia en proyectos de telefonía, kioscos digitales, aplicaciones corporativas, sistemas de seguridad, IA, criptografía y hasta instalaciones artísticas." %}
+            </p>
+        </div>
+        <div class="col-lg-6" style="text-align: center">
+            <h3>{% trans "Mapalé Software" %}</h3>
+            <address>
+                {% trans "Visit us at" %}:<br>
+                <a href="http://mapalesoftware.com">mapalesoftware.com</a><br>
+                E-mail: <a mailto="info@mapalesoftware.com">info@mapalesoftware.com</a><br>
+                Blog: <a href="http://blog.mapalesoftware.com">blog.mapalesoftware.com</a><br>
+                Twitter: <a href="https://twitter.com/mapalesoftware">@mapalesoftware</a><br>
+                Manizales, Colombia<br>
+            </address>
+        </div>
+    </div>
+</div>
