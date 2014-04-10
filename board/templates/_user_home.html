@@ -2,7 +2,7 @@
 <div class="row" style="text-align:center;">
     <div class="col-lg-4">
         <h2>{% trans "Personal Info" %}</h2>
-        <img src="http://placehold.it/200x100/365fa5" alt="photo">
+        <img src="{{ user.get_profile.get_mugshot_url }}" alt="avatar">
         <p>{% trans "Username" %}: {{ user }}</p>
         <p>{% trans "Email" %}: {{ user.email }}</p>
         <p><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit details" %}</a></p>
