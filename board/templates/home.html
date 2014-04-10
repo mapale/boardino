@@ -3,9 +3,9 @@
     {% block content %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
     {% if not user.is_authenticated %}
-        {% include '_user_logout.html' %}
+        {% include '_home.html' %}
     {% else %}
-        {% include '_user_logged.html' %}
+        {% include '_user_home.html' %}
     {% endif %}
 
     <!-- <hr> -->
