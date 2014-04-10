@@ -20,11 +20,8 @@ from accounts.models import UserProfile
 
 # Main Page where you can see the created boards if you're authenticated
 def home(request):
-    visited_boards = []
-    if 'visited' in request.session:
-        visited_boards = request.session['visited']
     return render_to_response('home.html',
-                              {'visited_boards': visited_boards, 'board_form': BoardForm()},
+                              {'board_form': BoardForm()},
                               context_instance=RequestContext(request))
 
 # Let you join to an existing board
