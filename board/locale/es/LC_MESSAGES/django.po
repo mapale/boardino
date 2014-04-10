@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-20 21:59-0500\n"
+"POT-Creation-Date: 2014-04-10 14:24-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,157 +25,285 @@ msgstr "Por favor escribe un email válido"
 msgid "Subscribed!"
 msgstr "Suscrito!"
 
-#: views.py:69
+#: views.py:79
 msgid "Welcome! Move me! Edit me! Delete me!"
 msgstr "Bienvenido! Muéveme! Edítame! Bórrame"
 
-#: views.py:71
+#: views.py:81
 msgid "Share this board and work together in realtime!"
 msgstr "Comparte este tablero y trabaja colaborativamente en tiempo real!"
 
-#: views.py:78
+#: views.py:88
 msgid "Come back to check new features!"
 msgstr "Vuelve para ver nuevas funcionalidades!"
+
+#: templates/_home.html:7
+#, fuzzy
+msgid "Real-time collaborative visual management whiteboard"
+msgstr "Tablero para trabajo colaborativo en tiempo real"
+
+#: templates/_home.html:8
+msgid "Try it for free &raquo;"
+msgstr "Pruébalo gratis &raquo;"
+
+#: templates/_home.html:13
+msgid "Just solve the math to start"
+msgstr "Sólo resuelve para empezar"
+
+#: templates/_home.html:18 templates/_user_home.html:22
+msgid "Start &raquo;"
+msgstr "Empezar &raquo;"
+
+#: templates/_home.html:28 templates/base.html:30
+msgid "Features"
+msgstr "Características"
+
+#: templates/_home.html:34
+msgid "Want to try it?"
+msgstr "¿Quieres probarlo?"
+
+#: templates/_home.html:35
+msgid "It is very easy and free to start. And it's not required to signup!"
+msgstr "Es muy fácil y gratis empezar. Y no te tienes que registrar!"
+
+#: templates/_home.html:36
+#, fuzzy
+msgid "Try it &raquo;"
+msgstr "Empezar &raquo;"
+
+#: templates/_home.html:42
+msgid "Real-Time Collaboration"
+msgstr "Colaboración en tiempo real"
+
+#: templates/_home.html:43
+msgid "Share your board to collaboratively work with your team."
+msgstr "Comparte tu tablero para trabajar en colaboración con tu equipo."
+
+#: templates/_home.html:49
+msgid "Open Source"
+msgstr "Código Abierto"
+
+#: templates/_home.html:50
+msgid "Yeah! It's open source!"
+msgstr "¡Sí, es open source!"
+
+#: templates/_home.html:51
+msgid "Check it out"
+msgstr "Míralo"
+
+#: templates/_home.html:57 templates/base.html:31
+#, fuzzy
+msgid "About"
+msgstr "Sobre nosotros"
+
+#: templates/_home.html:62
+msgid ""
+"We are a team of programmers/designers/geeks and freaks in general that "
+"found his job very entertaining and passionate. As a team we work on "
+"software development projects in different areas, specializing in mobile and "
+"web apps, but with experience in voIP, corporate apps, security systemas, "
+"Artifical intelligence, criptography and even artistic installations."
+msgstr ""
+"Somos un equipo de programadores/diseñadores/geeks y freaks en general que "
+"encuentran su oficio muy entretenido y apasionante. Como equipo trabajamos "
+"en proyectos de desarrollo de software para diferentes áreas, haciendo "
+"énfasis en las aplicaciones móviles y web pero con experiencia en proyectos "
+"de telefonía, kioscos digitales, aplicaciones corporativas, sistemas de "
+"seguridad, IA, criptografía y hasta instalaciones artísticas."
+
+#: templates/_home.html:66 templates/home.html:18
+msgid "Mapalé Software"
+msgstr "Mapalé Software"
+
+#: templates/_home.html:68
+msgid "Visit us at"
+msgstr "Visítanos en"
+
+#: templates/_user_home.html:4
+msgid "Personal Info"
+msgstr "Información personal"
+
+#: templates/_user_home.html:6
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: templates/_user_home.html:7 templates/userena/profile_detail.html:43
+msgid "Email"
+msgstr "Email"
+
+#: templates/_user_home.html:8 templates/userena/profile_detail.html:19
+msgid "Edit details"
+msgstr "Editar detalles"
+
+#: templates/_user_home.html:9 templates/userena/profile_detail.html:20
+#: templates/userena/profile_form.html:15
+msgid "Change password"
+msgstr "Cambiar contraseña"
+
+#: templates/_user_home.html:10 templates/userena/profile_detail.html:21
+#: templates/userena/profile_form.html:16
+msgid "Change email"
+msgstr "Cambiar email"
+
+#: templates/_user_home.html:11
+#, fuzzy
+msgid "Boardinos"
+msgstr "Tus Boardinos"
+
+#: templates/_user_home.html:12
+msgid "Crear nuevo"
+msgstr ""
+
+#: templates/_user_home.html:17
+msgid "Introduce el Captcha para generar un Tablero"
+msgstr ""
 
 #: templates/base.html:11 templates/board.html:6
 #, fuzzy
 msgid "Boardino - Project Management Whiteboard"
 msgstr "Tablero para trabajo colaborativo en tiempo real"
 
-#: templates/base.html:32
+#: templates/base.html:36
 msgid "Email or username"
 msgstr "Email o nombre de usuario"
 
-#: templates/base.html:35 templates/board.html:79 templates/board.html.py:81
+#: templates/base.html:39
 #, fuzzy
 msgid "Password"
 msgstr "Cambiar contraseña"
 
-#: templates/base.html:37
+#: templates/base.html:41
 msgid "Sign in"
 msgstr "Entrar"
 
-#: templates/base.html:38
+#: templates/base.html:42
 msgid "Sign up"
 msgstr "Registro"
 
-#: templates/base.html:46
+#: templates/base.html:50
 msgid "Logout"
 msgstr "Salir"
 
-#: templates/board.html:45
-msgid "Protect this board"
-msgstr "Protege este tablero"
+#: templates/board.html:43
+msgid "Set public"
+msgstr "Publicar"
 
-#: templates/board.html:46
-msgid "Set a name"
+#: templates/board.html:44 templates/board.html.py:94
+msgid "Set private"
+msgstr "Volver privado"
+
+#: templates/board.html:45
+#, fuzzy
+msgid "Set name"
 msgstr "Poner un nombre"
 
-#: templates/board.html:47
+#: templates/board.html:46
 msgid "Clone this board"
 msgstr "Clonar este tablero"
 
-#: templates/board.html:71
-msgid "Protect with a password"
-msgstr "Proteger con contraseña"
+#: templates/board.html:72
+msgid "Set this boardino as private ..."
+msgstr "Volver este tablero privado"
 
-#: templates/board.html:75
-msgid "There is a password mismatch"
-msgstr "Las contraseñas no coinciden"
+#: templates/board.html:76
+msgid "Couldn't set the board as private"
+msgstr "No se pudo hacer privado el tablero"
 
-#: templates/board.html:85 templates/board.html.py:87
-#, fuzzy
-msgid "Confirm password"
-msgstr "Cambiar contraseña"
+#: templates/board.html:80
+msgid "Are you sure to set this boardino as private?"
+msgstr "¿ Estás seguro que quieres volverlo privado ?"
 
-#: templates/board.html:93 templates/board.html.py:120
-msgid "Cancel"
-msgstr "Cancelar"
+#: templates/board.html:82
+msgid ""
+"You are not allowed to set this boardino as private, because you are not the "
+"owner"
+msgstr ""
+"No estás autorizado para poner privado este tablero, porque no eres el dueño"
+
+#: templates/board.html:85
+msgid "You are not allowed to set this boardino as private."
+msgstr "No estás autorizado a poner este tablero como privado"
+
+#: templates/board.html:86
+msgid "Please register if you haven't and upgrade your plan."
+msgstr "Por favor regístrate si no lo has hecho y actualiza tu plan"
+
+#: templates/board.html:88
+msgid "Also, you need to be the owner of the board."
+msgstr "También, debes ser el dueño del tablero"
 
 #: templates/board.html:94 templates/board.html.py:121
+#: templates/board.html:151
 msgid "saving..."
 msgstr "guardando..."
 
-#: templates/board.html:94
-msgid "Save"
-msgstr "Guardar"
+#: templates/board.html:96 templates/board.html.py:123
+msgid "Accept"
+msgstr "Aceptar"
 
-#: templates/board.html:104
+#: templates/board.html:107
+msgid "Publish this boardino ..."
+msgstr "Publicar este boardino"
+
+#: templates/board.html:111
+msgid "Couldn't set the board as public"
+msgstr "No se pudo publicar este tablero"
+
+#: templates/board.html:114
+msgid "Are you sure to set this boardino as public?"
+msgstr "¿Estás seguro de que quieres volver este boardino público?"
+
+#: templates/board.html:116
+msgid ""
+"You are not allowed to publish this boardino, because you are not the owner"
+msgstr "No estás autorizado a publicar este boardino, porque no eres el dueño"
+
+#: templates/board.html:121
+msgid "Publish"
+msgstr "Publicar"
+
+#: templates/board.html:134
 msgid "Set a name for the board"
 msgstr "Poner un nombre para el tablero"
 
-#: templates/board.html:108
+#: templates/board.html:138
 msgid "Only alphanumeric characters allowed"
 msgstr "Sólo se permiten números o letras"
 
-#: templates/board.html:112
+#: templates/board.html:142
 msgid "Alias"
 msgstr "Nombre"
 
-#: templates/board.html:114
+#: templates/board.html:144
 msgid "New boardino name"
 msgstr "Nuevo nombre"
 
-#: templates/home.html:10
-msgid "Real-time collaborative project management whiteboard"
-msgstr "Tablero para trabajo colaborativo en tiempo real"
+#: templates/board.html:150
+msgid "Cancel"
+msgstr "Cancelar"
 
-#: templates/home.html:22
-msgid "Want to try it?"
-msgstr "¿Quieres probarlo?"
-
-#: templates/home.html:23
+#: templates/home.html:19
 #, fuzzy
-msgid "Just solve the math and click start to create your first Boardino."
-msgstr "Resuelve y da clik en empezar para crear tu primer Boardino."
+msgid "Imagen"
+msgstr "Imagen"
 
-#: templates/home.html:24
-msgid "It is not required to sign-up."
-msgstr "No tienes que registrarte"
+#: templates/home.html:19
+msgid "Derechos reservados"
+msgstr ""
 
-#: templates/home.html:29
-msgid "Start &raquo;"
-msgstr "Empezar &raquo;"
-
-#: templates/home.html:38
-msgid "Real-Time Collaboration"
-msgstr "Colaboración en tiempo real"
-
-#: templates/home.html:39
-msgid "Share your board to collaboratively work with your team."
-msgstr "Comparte tu tablero para trabajar en colaboración con tu equipo."
-
-#: templates/home.html:45
-msgid "Your Boardinos"
-msgstr "Tus Boardinos"
-
-#: templates/home.html:56
-msgid "You haven't visited any Boardino yet."
-msgstr "No has visitado ningún Boardino todavía"
+#: templates/home.html:19
+msgid "por"
+msgstr ""
 
 #: templates/userena/profile_detail.html:5
-#, python-format
+#, fuzzy, python-format
 msgid "%(username)s's profile."
-msgstr ""
+msgstr "Perfil de usuario"
 
 #: templates/userena/profile_detail.html:18
 #: templates/userena/profile_form.html:13
 msgid "View profile"
 msgstr "Ver perfil"
-
-#: templates/userena/profile_detail.html:19
-msgid "Edit details"
-msgstr "Editar detalles"
-
-#: templates/userena/profile_detail.html:20
-#: templates/userena/profile_form.html:15
-msgid "Change password"
-msgstr "Cambiar contraseña"
-
-#: templates/userena/profile_detail.html:21
-#: templates/userena/profile_form.html:16
-msgid "Change email"
-msgstr "Cambiar email"
 
 #: templates/userena/profile_detail.html:29
 msgid "Your mugshot"
@@ -184,10 +312,6 @@ msgstr "Tu foto"
 #: templates/userena/profile_detail.html:39
 msgid "Name"
 msgstr "Nombre"
-
-#: templates/userena/profile_detail.html:43
-msgid "Email"
-msgstr "Email"
 
 #: templates/userena/profile_detail.html:47
 msgid "Age"
@@ -210,9 +334,9 @@ msgid "Account setup"
 msgstr "Configuración de cuenta"
 
 #: templates/userena/profile_form.html:7
-#, python-format
+#, fuzzy, python-format
 msgid "Account &raquo; %(username)s"
-msgstr ""
+msgstr "Cuenta &raquo;"
 
 #: templates/userena/profile_form.html:14
 msgid "Edit profile"
@@ -225,6 +349,41 @@ msgstr "Editar perfil"
 #: templates/userena/profile_form.html:23
 msgid "Save changes"
 msgstr "Guardar cambios"
+
+#~ msgid "New"
+#~ msgstr "Nuevo"
+
+#~ msgid "Reserved rights"
+#~ msgstr "Derechos reservados"
+
+#~ msgid "by"
+#~ msgstr "por"
+
+#~ msgid "Protect this board"
+#~ msgstr "Protege este tablero"
+
+#~ msgid "Protect with a password"
+#~ msgstr "Proteger con contraseña"
+
+#~ msgid "There is a password mismatch"
+#~ msgstr "Las contraseñas no coinciden"
+
+#, fuzzy
+#~ msgid "Confirm password"
+#~ msgstr "Cambiar contraseña"
+
+#~ msgid "Save"
+#~ msgstr "Guardar"
+
+#, fuzzy
+#~ msgid "Just solve the math and click start to create your first Boardino."
+#~ msgstr "Resuelve y da clik en empezar para crear tu primer Boardino."
+
+#~ msgid "It is not required to sign-up."
+#~ msgstr "No tienes que registrarte"
+
+#~ msgid "You haven't visited any Boardino yet."
+#~ msgstr "No has visitado ningún Boardino todavía"
 
 #~ msgid "Already started?"
 #~ msgstr "¿Ya empezaste?"
