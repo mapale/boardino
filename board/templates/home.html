@@ -3,7 +3,7 @@
     {% block content %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
     {% if not user.is_authenticated %}
-        
+        {% include '_user_logout.html' %}
     {% else %}
         {% include '_user_logged.html' %}
     {% endif %}
