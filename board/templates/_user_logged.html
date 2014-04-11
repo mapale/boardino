@@ -8,29 +8,26 @@
         <p><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit details" %}</a></p>
         <p><a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a></p>
         <p><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></p>
-        <h2>{% trans "Boardinos" %}</h2>
-        <button class="btn btn-lg btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">{% trans "Crear nuevo" %}</button>
-        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <p>¡{% trans "Introduce el Captcha para generar un Tablero" %}!</p>
-                    <form action="/new" method="post">
-                        {% csrf_token %}
-                        <div>{{ board_form.captcha }}</div>
-                        <br>
-                        <input type="submit" id="new_board" class="btn btn-lg btn-success" href="/new" rel="nofollow" value="{% trans "Start &raquo;" %}"/>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <br><br>
-        {% for board in user.get_profile.boardinos.all %}
-            <p><a href="/{{ board.hash }}" alt="{{ board.hash }}">{{ board.hash }}</a></p>
-        {% endfor %}
     </div>
     <div class="col-lg-8">
         <div class="row">
+            <div class="col-lg-6">
+                <img src="http://placehold.it/300x150/365fa5/fff&text={% trans "New Board" %}" alt="default" data-toggle="modal" data-target=".bs-example-modal-sm">
+            </div>
+            <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <p>¡{% trans "Introduce el Captcha para generar un Tablero" %}!</p>
+                        <form action="/new" method="post">
+                            {% csrf_token %}
+                            <div>{{ board_form.captcha }}</div>
+                            <br>
+                            <input type="submit" id="new_board" class="btn btn-lg btn-success" href="/new" rel="nofollow" value="{% trans "Start &raquo;" %}"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
             {% for board in user.get_profile.boardinos.all %}
                 <div class="col-lg-6">
                     <a href="/{{ board.hash }}" alt="{{ board.hash }}">
