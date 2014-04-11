@@ -8,13 +8,15 @@
         <p><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit details" %}</a></p>
         <p><a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a></p>
         <p><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></p>
-        <form action="/new" method="post">
-            {% csrf_token %}
-            {{ board_form }}
-            <input type="submit" id="new_board" class="btn btn-lg btn-success" href="/new" rel="nofollow" value="{% trans "New board" %}"/>
-        </form>
     </div>
     <div class="col-lg-8">
+        <div class="col-lg-6">
+            <form id="form_new_board" action="/new" method="post">
+                {% csrf_token %}
+                {{ board_form }}
+                <a id="new_board" href="#"><img src="http://placehold.it/300x150/365fa5/fff&text={% trans "New Board" %}" alt="default"></a>
+            </form>
+        </div>
         <div class="row">
             {% for board in user.get_profile.boardinos.all %}
                 <div class="col-lg-6">
@@ -31,3 +33,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('#new_board').click(function() {
+        $('#form_new_board').submit();
+    });
+</script>
