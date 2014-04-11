@@ -1,0 +1,33 @@
+{% load i18n %}
+<div class="row" style="text-align:center;">
+    <div class="col-lg-4">
+        <h2>{% trans "Personal Info" %}</h2>
+        <img src="{{ user.get_profile.get_mugshot_url }}" alt="avatar">
+        <p>{% trans "Username" %}: {{ user }}</p>
+        <p>{% trans "Email" %}: {{ user.email }}</p>
+        <p><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit details" %}</a></p>
+        <p><a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a></p>
+        <p><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></p>
+        <form action="/new" method="post">
+            {% csrf_token %}
+            {{ board_form }}
+            <input type="submit" id="new_board" class="btn btn-lg btn-success" href="/new" rel="nofollow" value="{% trans "New board" %}"/>
+        </form>
+    </div>
+    <div class="col-lg-8">
+        <div class="row">
+            {% for board in user.get_profile.boardinos.all %}
+                <div class="col-lg-6">
+                    <a href="/{{ board.hash }}" alt="{{ board.hash }}">
+                        {% if board.screenshot %}
+                            <img src="{{ board.screenshot }}" alt="screenshot">
+                        {% else %}
+                            <img src="http://placehold.it/300x150/fff&text=No+screenshot+available" alt="default">
+                        {% endif %}
+                        <p>{{ board.hash }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

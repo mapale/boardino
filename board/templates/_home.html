@@ -1,0 +1,76 @@
+{% load i18n %}
+<div class="jumbotron" style="text-align: center">
+    <div class="container">
+        <div id="logo">
+            <img src="/static/images/logo_big.png"/>
+        </div>
+        <h2>{% trans "Real-time collaborative visual management whiteboard" %}</h2>
+        <button class="btn btn-lg btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">{% trans "Try it for free &raquo;" %}</button>
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <p>¡ {% trans "Just solve the math to start" %} !</p>
+                    <form action="/new" method="post">
+                        {% csrf_token %}
+                        <div>{{ board_form.captcha }}</div>
+                        <br>
+                        <input type="submit" id="new_board" class="btn btn-lg btn-success" href="/new" rel="nofollow" value="{% trans "Start &raquo;" %}"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="features" class="container">
+    <!-- Example row of columns -->
+    <h2>{% trans "Features" %}</h2>
+    <div class="row" style="text-align: center">
+        <div class="col-lg-4">
+            <div>
+            <i class="fa fa-rocket fa-5x" ></i>
+            </div>
+            <h3>{% trans "Want to try it?" %}</h3>
+            <p>{% trans "It is very easy and free to start. And it's not required to signup!" %}</p>
+            <p><button class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">{% trans "Try it &raquo;" %}</button></p>
+        </div>
+        <div class="col-lg-4">
+            <div>
+                <i class="fa fa-users fa-5x" ></i>
+            </div>
+            <h3>{% trans "Real-Time Collaboration" %}</h3>
+            <p>{% trans "Share your board to collaboratively work with your team." %}</p>
+        </div>
+        <div class="col-lg-4">
+            <div>
+            <i class="fa fa-edit fa-5x" ></i>
+            </div>
+            <h3>{% trans "Open Source" %}</h3>
+            <p>{% trans "Yeah! It's open source!"  %}</p>
+            <p><a href="http://github.com/mapale/boardino"><button class="btn btn-primary">{% trans "Check it out" %}</button></a></p>
+        </div>
+    </div>
+</div>
+
+<div id="about" class="container">
+    <h2>{% trans "About" %}</h2>
+    <div class="row">
+        <div class="col-lg-6" style="text-align: center">
+            <img src="/static/images/mapale_logo.png"/>
+            <p>
+                {% trans "We are a team of programmers/designers/geeks and freaks in general that found his job very entertaining and passionate. As a team we work on software development projects in different areas, specializing in mobile and web apps, but with experience in voIP, corporate apps, security systemas, Artifical intelligence, criptography and even artistic installations." %}
+            </p>
+        </div>
+        <div class="col-lg-6" style="text-align: center">
+            <h3>{% trans "Mapalé Software" %}</h3>
+            <address>
+                {% trans "Visit us at" %}:<br/>
+                <a href="http://mapalesoftware.com">mapalesoftware.com</a><br/>
+                E-mail: <a mailto="info@mapalesoftware.com">info@mapalesoftware.com</a><br/>
+                Blog: <a href="http://blog.mapalesoftware.com">blog.mapalesoftware.com</a><br/>
+                Twitter: <a href="https://twitter.com/mapalesoftware">@mapalesoftware</a><br/>
+            </address>
+        </div>
+    </div>
+</div>
