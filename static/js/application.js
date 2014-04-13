@@ -1431,7 +1431,8 @@ define('app/views/main',[
       "click #set-alias-btn": "setBoardAlias",
       "click #zoom_in": "zoomIn",
       "click #zoom_out": "zoomOut",
-      "click #connected_users_btn": "toggleUsers"
+      "click #connected_users_btn": "toggleUsers",
+      "click #premium-tool": "showGetPremiumModal"
     },
     initialize: function(attrs){
       this.boardView = attrs.boardView;
@@ -1439,6 +1440,7 @@ define('app/views/main',[
       this.menu = $("#menu");
       this.menu.menu();
       var _this = this;
+      $("#get-premium-modal").modal({show:false});
       $("#set-private-modal").modal({show:false});
       $("#set-alias-modal").modal({show:false});
         $( "#zoom-slider" ).slider({
@@ -1564,7 +1566,11 @@ define('app/views/main',[
       toggleUsers: function(e){
           e.preventDefault();
           $("#online_users_container").toggle("slow");
-      }
+      },
+      showGetPremiumModal: function(e) {
+        e.preventDefault();
+        $("#get-premium-modal").modal('show');
+    }
   });
   return MainView;
 });

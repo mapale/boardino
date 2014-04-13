@@ -16,6 +16,7 @@ from board.forms import BoardForm
 from board.models import Board, PostIt, Line, Text
 from board.serializers import PostitSerializer, LineSerializer, BoardSerializer, UserProfileSerializer, TextSerializer
 from accounts.models import UserProfile
+import stripe
 
 
 # Main Page where you can see the created boards if you're authenticated
@@ -144,7 +145,10 @@ def board(request, board_hash):
     board.last_visit = datetime.now()
     board.save()
 
-    return render_to_response('board.html',{'board': board, 'postits':board.postit_set.all()}, context_instance=RequestContext(request))
+    if 'stripeToken' in request.POST:
+        payment(request)
+
+    return render_to_response('board.html', {'board': board, 'postits':board.postit_set.all()}, context_instance=RequestContext(request))
 
 # Clear all drawed lines of the board
 @csrf_exempt
@@ -187,6 +191,29 @@ def download(request, board_hash):
     response = HttpResponse(base64image.decode('base64'), mimetype='image/png')
     response['Content-Disposition'] = 'attachment; filename=boardino_%s.png' % board_hash
     return response
+
+def payment(request):
+    # Set your secret key: remember to change this to your live secret key in production
+    # See your keys here https://manage.stripe.com/account
+    stripe.api_key = "sk_test_Ikylm2T3IkWrhIUVRqj1eV4f"
+
+    # Get the credit card details submitted by the form
+    token = request.POST['stripeToken']
+
+    # Create the charge on Stripe's servers - this will charge the user's card
+    try:
+        charge = stripe.Charge.create(
+            amount=100, # amount in cents, again
+            currency="usd",
+            card=token,
+            description=request.user.email
+        )
+        up = request.user.get_profile()
+        up.is_premium = True
+        up.save()
+    except stripe.CardError, e:
+        # The card has been decline
+        pass
 
 # API
 @api_view(['GET'])
