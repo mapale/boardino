@@ -195,7 +195,8 @@ def download(request, board_hash):
 def payment(request):
     # Set your secret key: remember to change this to your live secret key in production
     # See your keys here https://manage.stripe.com/account
-    stripe.api_key = "sk_test_Ikylm2T3IkWrhIUVRqj1eV4f"
+    from settings import STRIPE_API_KEY
+    stripe.api_key = STRIPE_API_KEY
 
     # Get the credit card details submitted by the form
     token = request.POST['stripeToken']

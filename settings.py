@@ -205,3 +205,5 @@ LOGGING = {
         },
     }
 }
+
+STRIPE_API_KEY = env('STRIPE_API_KEY', 'sk_test_Ikylm2T3IkWrhIUVRqj1eV4f')
