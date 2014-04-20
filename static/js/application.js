@@ -1563,7 +1563,7 @@ define('app/views/main',[
 
       toggleUsers: function(e){
           e.preventDefault();
-          $("#online_users_container").toggle("slow");
+          $('#sidebar').toggleClass('active');
       }
   });
   return MainView;
