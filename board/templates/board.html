@@ -148,7 +148,35 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
-                    <button type="button" class="btn btn-primary" id="set-alias-btn" data-loading-text="{% trans "saving..." %}" >{% trans Save%}</button>
+                    <button type="button" class="btn btn-primary" id="set-alias-btn" data-loading-text="{% trans "saving..." %}" >{% trans "Save"%}</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="invite-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{% trans "Invite people to this board" %}</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="invite-error" class="alert alert-danger" style="display: none">
+                        <span id="invite-error-msg">{% trans "Couldn't invite your friend"%}</span>
+                    </div>
+                    <div class="form-horizontal" role="form">
+                        <div class="input-group">
+                            <!--<label for="invited-username" class="col-lg-2 control-label">{% trans "Username or Email" %}</label>-->
+                            <input type="text" class="form-control" id="board-alias" placeholder="{% trans "Username or Email" %}">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" id="do-invite-btn" type="button" data-loading-text="{% trans "inviting..." %}">{% trans "Invite" %}</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" data-loading-text="{% trans "saving..." %}" >{% trans "Accept"%}</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
