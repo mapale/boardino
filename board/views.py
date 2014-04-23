@@ -9,9 +9,9 @@ from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.translation import ugettext as _
 from rest_framework.decorators import api_view
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from rest_framework.response import Response
-from rest_framework.reverse import reverse
+from rest_framework.views import APIView
 from board.forms import BoardForm
 from board.models import Board, PostIt, Line, Text
 from board.serializers import PostitSerializer, LineSerializer, BoardSerializer, UserProfileSerializer, TextSerializer
@@ -267,6 +267,10 @@ class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
     def post_save(self, board, created=False):
         if 'board_'+str(board.id) in self.request.session:
             del self.request.session['board_'+str(board.id)]
+
+class Invite(APIView):
+    def post(self, request, hash, format=None):
+        return Response({"message": hash, "user": request.DATA["username"]})
 
 class ProfileDetail(generics.RetrieveUpdateAPIView):
     model = UserProfile

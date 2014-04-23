@@ -1429,9 +1429,11 @@ define('app/views/main',[
       "click #set-private-btn": "setPrivate",
       "click #set-public-btn": "setPublic",
       "click #set-alias-btn": "setBoardAlias",
+      "click #do-invite-btn": "invite",
       "click #zoom_in": "zoomIn",
       "click #zoom_out": "zoomOut",
-      "click #connected_users_btn": "toggleUsers"
+      "click #connected_users_btn": "toggleUsers",
+      "click #invite-btn": "showInviteModal"
     },
     initialize: function(attrs){
       this.boardView = attrs.boardView;
@@ -1441,6 +1443,7 @@ define('app/views/main',[
       var _this = this;
       $("#set-private-modal").modal({show:false});
       $("#set-alias-modal").modal({show:false});
+        $("#invite-modal").modal({show:false});
         $( "#zoom-slider" ).slider({
             orientation: "vertical",
             min: 0.2,
@@ -1485,6 +1488,10 @@ define('app/views/main',[
       e.preventDefault();
       $("board-alias").val(this.board.get("hash"));
       $("#set-alias-modal").modal('show');
+    },
+    showInviteModal : function(e) {
+        e.preventDefault();
+        $('#invite-modal').modal('show');
     },
     setPrivate: function(e){
         e.preventDefault();
@@ -1550,6 +1557,15 @@ define('app/views/main',[
         );
       }
     },
+
+      invite: function(e) {
+          e.preventDefault();
+          $.post("/api/boards/" + this.board.get("hash") + "/invite/", {
+              "username": $("#invited-username").val()
+          }, function(response){
+
+          }, 'json');
+      },
 
       zoomIn: function(event){
           var zoom = this.boardView.zoomIn(event);
