@@ -15,3 +15,4 @@ pyyaml
 django-userena
 mock
 django-simple-captcha
+mandrill==1.0.6
