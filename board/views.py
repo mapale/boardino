@@ -9,13 +9,13 @@ from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.translation import ugettext as _
 from rest_framework.decorators import api_view
-from rest_framework import generics, viewsets
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from board.forms import BoardForm
 from board.models import Board, PostIt, Line, Text
 from board.serializers import PostitSerializer, LineSerializer, BoardSerializer, UserProfileSerializer, TextSerializer
-from accounts.models import UserProfile
+from accounts.models import UserProfile, Invitation
 
 
 # Main Page where you can see the created boards if you're authenticated
@@ -270,7 +270,29 @@ class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class Invite(APIView):
     def post(self, request, hash, format=None):
-        return Response({"message": hash, "user": request.DATA["username"]})
+        board = get_object_or_404(Board, hash=hash)
+        identification = request.DATA["username"]
+        if validateEmail(identification):
+            try:
+                user = User.objects.get(email__iexact=identification)
+            except User.DoesNotExist:
+                invitation = Invitation()
+                invitation.email = identification
+                invitation.board = board
+                invitation.save()
+                return Response({"message": "The user "+ identification +" has been invited"})
+        else:
+            try:
+                user = User.objects.get(username__iexact=identification)
+            except User.DoesNotExist:
+                return Response({"message": "We don't have a user with that name"}, status=400)
+
+        user_profile = user.get_profile()
+        user_profile.boardinos.add(board)
+        user_profile.save()
+
+        return Response({"message": "The user "+ identification +" has been invited"})
+
 
 class ProfileDetail(generics.RetrieveUpdateAPIView):
     model = UserProfile

@@ -32,7 +32,7 @@
     var lastTap = null;
     </script>-->
     <script src="/static/assets/vendor/html2canvas.js"></script>
-    <script data-main="/static/js/application" src="/static/assets/vendor/require.js"></script>
+    <script data-main="/static/js/application.min" src="/static/assets/vendor/require.js"></script>
     <script type="application/javascript">
         window['ws_host'] = 'boardino-sync.herokuapp.com:80';
     </script>
@@ -163,6 +163,9 @@
                 <div class="modal-body">
                     <div id="invite-error" class="alert alert-danger" style="display: none">
                         <span id="invite-error-msg">{% trans "Couldn't invite your friend"%}</span>
+                    </div>
+                    <div id="invite-success" class="alert alert-success" style="display: none">
+                        <span id="invite-success-msg"></span>
                     </div>
                     <div class="form-horizontal" role="form">
                         <div class="input-group">

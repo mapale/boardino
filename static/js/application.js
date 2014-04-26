@@ -1444,6 +1444,11 @@ define('app/views/main',[
       $("#set-private-modal").modal({show:false});
       $("#set-alias-modal").modal({show:false});
         $("#invite-modal").modal({show:false});
+        $('#invite-modal').on('hidden.bs.modal', function (e) {
+            $("#invite-error").hide();
+            $("#invite-success").hide();
+            $("#invited-username").val("");
+        });
         $( "#zoom-slider" ).slider({
             orientation: "vertical",
             min: 0.2,
@@ -1453,6 +1458,35 @@ define('app/views/main',[
             slide: function( event, ui ) {
                 _this.boardView.setZoom(ui.value);
                 //$( "#amount" ).val( ui.value );
+            }
+        });
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        function sameOrigin(url) {
+            // test that a given url is a same-origin URL
+            // url could be relative or scheme relative or absolute
+            var host = document.location.host; // host + port
+            var protocol = document.location.protocol;
+            var sr_origin = '//' + host;
+            var origin = protocol + sr_origin;
+            // Allow absolute or scheme relative URLs to same origin
+            return (url === origin || url.slice(0, origin.length + 1) === origin + '/') ||
+                (url === sr_origin || url.slice(0, sr_origin.length + 1) === sr_origin + '/') ||
+                // or any other URL that isn't scheme relative or absolute i.e relative.
+                !(/^(\/\/|http:|https:).*/.test(url));
+        }
+        var csrftoken = this.getCookie("csrftoken");
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+                    // Send the token to same-origin, relative URLs only.
+                    // Send the token only if the method warrants CSRF protection
+                    // Using the CSRFToken value acquired earlier
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
             }
         });
     },
@@ -1563,8 +1597,15 @@ define('app/views/main',[
           $.post("/api/boards/" + this.board.get("hash") + "/invite/", {
               "username": $("#invited-username").val()
           }, function(response){
-
-          }, 'json');
+              $("#invite-error").hide();
+              $("#invite-success").show();
+              $("#invite-success-msg").text(response.message);
+          }, 'json').fail(function(xhr, status, error){
+                  var response = JSON.parse(xhr.responseText);
+                  $("#invite-success").hide();
+                  $("#invite-error").show();
+                  $("#invite-error-msg").text(response.message);
+              });
       },
 
       zoomIn: function(event){
@@ -1580,7 +1621,23 @@ define('app/views/main',[
       toggleUsers: function(e){
           e.preventDefault();
           $('#sidebar').toggleClass('active');
-      }
+      },
+
+      getCookie: function(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = $.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
   });
   return MainView;
 });

@@ -9,3 +9,7 @@ class UserProfile(UserenaBaseProfile):
     boardinos = models.ManyToManyField(Board)
     is_premium = models.BooleanField(default=False)
 
+
+class Invitation(models.Model):
+    email = models.EmailField()
+    board = models.ForeignKey(Board)
