@@ -143,7 +143,9 @@ USERENA_SIGNIN_REDIRECT_URL = '/'
 USERENA_REDIRECT_ON_SIGNOUT = '/'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+EMAIL_BACKEND = 'django_mandrill.mail.backends.mandrillbackend.EmailBackend'
+
+MANDRILL_API_KEY = env('MANDRILL_APIKEY')
 
 ROOT_URLCONF = 'urls'
 
@@ -204,4 +206,8 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+SOUTH_MIGRATION_MODULES = {
+    'easy_thumbnails': 'easy_thumbnails.south_migrations',
 }

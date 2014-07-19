@@ -16,3 +16,4 @@ django-userena
 mock
 django-simple-captcha
 mandrill==1.0.6
+django-mandrill==0.1.0

@@ -1,4 +1,5 @@
 import json
+from board.mail import send_invitation_email
 import re
 from datetime import datetime
 from django.contrib.auth.models import User
@@ -280,6 +281,7 @@ class Invite(APIView):
                 invitation.email = identification
                 invitation.board = board
                 invitation.save()
+                send_invitation_email(board, None, invitation)
                 return Response({"message": "The user "+ identification +" has been invited"})
         else:
             try:
@@ -290,6 +292,8 @@ class Invite(APIView):
         user_profile = user.get_profile()
         user_profile.boardinos.add(board)
         user_profile.save()
+
+        send_invitation_email(board, user)
 
         return Response({"message": "The user "+ identification +" has been invited"})
 
