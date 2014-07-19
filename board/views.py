@@ -273,21 +273,14 @@ class Invite(APIView):
     def post(self, request, hash, format=None):
         board = get_object_or_404(Board, hash=hash)
         identification = request.DATA["username"]
-        if validateEmail(identification):
-            try:
+
+        try:
+            if validateEmail(identification):
                 user = User.objects.get(email__iexact=identification)
-            except User.DoesNotExist:
-                invitation = Invitation()
-                invitation.email = identification
-                invitation.board = board
-                invitation.save()
-                send_invitation_email(board, None, invitation)
-                return Response({"message": "The user "+ identification +" has been invited"})
-        else:
-            try:
+            else:
                 user = User.objects.get(username__iexact=identification)
-            except User.DoesNotExist:
-                return Response({"message": "We don't have a user with that name"}, status=400)
+        except User.DoesNotExist:
+            return Response({"message": "We don't have a user with that email"}, status=400)
 
         user_profile = user.get_profile()
         user_profile.boardinos.add(board)
